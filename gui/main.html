@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+<style>
+
+.triangle-right {
+	width: 0;
+	height: 0;
+	position:relative;
+	border-top: 10px solid transparent;
+	border-left: 28px solid #274f4f;
+	border-bottom: 10px solid transparent;	
+}
+
+#mainContainer {
+	height:100%;
+	width:100%;
+	position:absolute;
+	background-color: #f1f1f1;
+}
+
+#menuBar {
+	height:100%;
+	width:12%;
+	background-color: #E0FFFF;
+	float:left;
+	display:block;
+	margin:0px;
+	padding:0px;
+	border-right:2px solid #000000;
+}
+
+#content {
+	height:100%;
+	width:80%;
+	float:left;
+	display:block;
+	background-color: #f1f1f1;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    width: 80%;
+    float:center;
+    background-color: #E0FFFF;
+}
+
+li a {
+    display: block;
+    color: #000;
+    margin: 8px 16px 16px 8px;
+    text-decoration: none;
+    font-family:sans-serif;
+    text-align: right;
+    border-bottom: 2px solid #274f4f
+}
+
+/* Change the link color on hover */
+li a:hover {
+    background-color: #555;
+    color: white;
+}
+
+</style>
+<body>
+<div id="mainContainer">
+	<div id="menuBar">
+		<ul>
+			<li>
+				<div id ="currentSelection" class="triangle-right"></div>
+				<a onClick="javascript:menuClicked('home.html')">Home</a>
+				</li>
+			<li>
+				<div id ="currentSelection" class="triangle-right"></div>
+				<a onClick="javascript:menuClicked('time.html')">Timetables</a></li>
+			<li>
+				<div id ="currentSelection" class="triangle-right"></div>
+				<a onClick="javascript:menuClicked('file.html')">File</a></li>
+			<li>
+				<div id ="currentSelection" class="triangle-right"></div>
+				<a onClick="javascript:menuClicked('settings.html')">Settings</a></li>
+		</ul>
+	</div>
+	<div id="content">
+	</div>
+</div>
+<script>
+var defaultStart = "home.html"
+
+$("#content").load(defaultStart);
+
+function menuClicked(htmlSite) {
+	console.log("clicked: " + htmlSite)
+	$("#content").load(htmlSite);
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+<body>
+<style>
+#loginfield {
+	display:inline-block;
+	margin-left:25%;
+	margin-top: 20%;
+	height:100%;
+	width:50%;
+}
+
+#username {
+	float:left;
+	margin-right: 3%;
+}
+
+#password {
+	float:left;
+	margin-left: 3%;
+}
+#loginbtn {
+	width:100%;
+}
+
+</style>
+<div id="loginfield" ng-app="IndexLogin" >
+  <div id="username">Username: <input type="text" ng-model="usernameAngle"></div>
+  <div id="password">Password: <input type="password" ng-model="passwordAngle"></div>
+  <input id="loginbtn" type="submit" onClick="javascirpt:login()" value="Log In">
+</div>
+
+<script>
+var app = angular.module("IndexLogin", [])
+
+function login() {
+	// var username = angular.element(document.getElementById('usernameAngle')).scope().usernameAngle
+	// var password = document.getElementById("password");
+	// console.log("LOGIN" + username + " -> " + password)
+
+	window.location = "main.html";
+}
+
+</script>
+
+</body>
+</html>

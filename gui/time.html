@@ -1,0 +1,51 @@
+<style>
+	.title {
+		font-family: sans-serif;
+		text-align:center;
+		width:100%;
+		background-color: #f1f1f1;
+	}
+</style>
+<h1 class="title">Travel Time Track</h1>
+<h2 class="title">Time Management</h2>
+<div id="users"></div>
+<script>
+	var users = [];
+	var xhr = new XMLHttpRequest();
+	var url = "localhost:55555";
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader("Content-Type", "application/json");
+	var sampleJson = '{ "users" : [' +
+		'{ "firstName":"Max" , "lastName":"Mustermann", ldapName:"m.mustermann" },' +
+		'{ "firstName":"Maxine" , "lastName":"Musterfrau", ldapName:"m.musterfrauch" } ]}';
+		'{ "firstName":"Zlatan" , "lastName":"Zaric", ldapName:"z.zaric" },' +
+
+	requestUser();
+
+	//Todo: remove when real data avaliable
+	fillUsersResponse(JSON.parse(sampleJson))
+	
+	xhr.onreadystatechange = function () {
+    	if (xhr.readyState === 4 && xhr.status === 200) {
+        	var json = JSON.parse(xhr.responseText);
+    	}
+	};
+	
+	function send(){
+		var data = JSON.stringify({"email": "hey@mail.com", "password": "101010"});
+		xhr.send(data);
+	}
+
+	function requestUsers() {
+		var data = JSON.stringify({"type": "dataRequest", "id": "users"});
+		xhr.send(data);	
+	}
+
+	function fillUsersResponse(jsonResponse) {
+		// iteratate through response array of users information
+		// fill the users div with clickable user divs
+		if(jsonResponse.containsKey("users")) {
+
+		}
+	}
+</script>
