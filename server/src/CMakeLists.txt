@@ -13,7 +13,12 @@ ADD_EXECUTABLE(t3server
 	${server_SOURCES}
 )
 
-MESSAGE(STATUS "Linking ${Poco_Libraries}")
+MESSAGE(STATUS "Linking ${Poco_LIBRARIES}")
 TARGET_LINK_LIBRARIES(t3server
-	${Poco_Libraries}
+	${Poco_LIBRARIES}
+	"/usr/lib/libPocoNet.so"
+	"/usr/lib/libPocoJSON.so"
+	"/usr/lib/libPocoUtil.so"
+	"/usr/lib/libPocoXML.so"
+	"/usr/lib/libPocoFoundation.so"
 )

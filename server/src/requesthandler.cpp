@@ -31,5 +31,6 @@ RequestHandler::~RequestHandler() {
 void RequestHandler::run() {
     m_server->start();
 
+    
     while(1); // refactor to wait on condition variable
 }
