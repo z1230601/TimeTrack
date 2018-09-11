@@ -10,11 +10,11 @@
             android:title="Projects" />
         <item
             android:id="@+id/nav_assignments"
-            android:icon="@drawable/ic_menu_gallery"
+            android:icon="@drawable/ic_menu_assignments"
             android:title="Assignments" />
         <item
             android:id="@+id/nav_times"
-            android:icon="@drawable/ic_menu_slideshow"
+            android:icon="@drawable/ic_menu_times"
             android:title="Times" />
         <item
             android:id="@+id/nav_settings"
@@ -26,11 +26,11 @@
         <menu>
             <item
                 android:id="@+id/nav_accommodations"
-                android:icon="@drawable/ic_menu_share"
+                android:icon="@drawable/ic_menu_accomodations"
                 android:title="Accommodations" />
             <item
                 android:id="@+id/nav_flights"
-                android:icon="@drawable/ic_menu_send"
+                android:icon="@drawable/ic_menu_flights"
                 android:title="Flights" />
         </menu>
     </item>
