@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,11 +8,47 @@
     tools:context=".TimeTrackHome"
     tools:showIn="@layout/app_bar_time_track_home">
 
-    <Spinner
-        android:id="@+id/currentProject"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="161dp" />
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
 
-</android.support.constraint.ConstraintLayout>
+            <Spinner
+                android:id="@+id/currentProject"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:entries="@string/newProjectString"
+                tools:layout_editor_absoluteX="0dp"
+                tools:layout_editor_absoluteY="56dp" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <Spinner
+                android:id="@+id/currentAssignment"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:entries="@string/newAssign"
+                tools:layout_editor_absoluteX="0dp"
+                tools:layout_editor_absoluteY="167dp" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <Button
+                android:id="@+id/startStopBtn"
+                android:layout_width="371dp"
+                android:layout_height="101dp"
+                android:text="Start"
+                tools:layout_editor_absoluteX="0dp"
+                tools:layout_editor_absoluteY="278dp" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+</TableLayout>
