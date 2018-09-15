@@ -7,33 +7,37 @@
 
     <group android:checkableBehavior="single">
         <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_menu_home"
+            android:title="@string/menu_home_title" />
+        <item
             android:id="@+id/nav_projects"
             android:icon="@drawable/ic_menu_projects"
-            android:title="Projects" />
+            android:title="@string/menu_projects_title" />
         <item
             android:id="@+id/nav_assignments"
             android:icon="@drawable/ic_menu_assignments"
-            android:title="Assignments" />
+            android:title="@string/menu_assignments_title" />
         <item
             android:id="@+id/nav_times"
             android:icon="@drawable/ic_menu_times"
-            android:title="Times" />
+            android:title="@string/menu_times_title" />
         <item
             android:id="@+id/nav_settings"
             android:icon="@drawable/ic_menu_manage"
-            android:title="Settings" />
+            android:title="@string/menu_settings_title" />
     </group>
 
-    <item android:title="Additional">
+    <item android:title="@string/menu_additional_subsection_title">
         <menu>
             <item
                 android:id="@+id/nav_accommodations"
                 android:icon="@drawable/ic_menu_accomodations"
-                android:title="Accommodations" />
+                android:title="@string/menu_accommodations_title" />
             <item
                 android:id="@+id/nav_flights"
                 android:icon="@drawable/ic_menu_flights"
-                android:title="Flights" />
+                android:title="@string/menu_flights_title" />
         </menu>
     </item>
 

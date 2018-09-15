@@ -1,6 +1,8 @@
 package android.finite.com.timetrack;
 
+import android.finite.com.data.Project;
 import android.finite.com.timetrack.view.DrawerListener;
+import android.finite.com.timetrack.view.ProjectCard;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -13,6 +15,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.LinearLayout;
 
 public class ProjectsView extends AppCompatActivity {
 
@@ -40,6 +43,19 @@ public class ProjectsView extends AppCompatActivity {
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(new DrawerListener(this));
+
+
+        Project proj = new Project("jaguar");
+        proj.setAdditionalProperty("Aircraftype", "ATR72-600");
+        proj.setAdditionalProperty("Country", "Austria");
+
+        LinearLayout leftCards = (LinearLayout) findViewById(R.id.PV_left_cards);
+        LinearLayout rightCards = (LinearLayout) findViewById(R.id.PV_right_cards);
+
+        ProjectCard card = new ProjectCard(rightCards.getContext(), proj);
+        card.create();
+
+        rightCards.addView(card);
     }
 
     @Override

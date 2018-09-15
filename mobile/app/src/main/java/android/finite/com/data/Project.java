@@ -3,8 +3,14 @@ package android.finite.com.data;
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.ForeignKey;
+import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
+
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 import static android.arch.persistence.room.ForeignKey.CASCADE;
 
@@ -25,6 +31,19 @@ public class Project {
     private int countryId;
     @ColumnInfo(name="customerId")
     private int customerId;
+    @Ignore
+    private Map<String, String> properties = new LinkedHashMap<String, String>();
+
+    public Project() {}
+
+    public Project(String codeName) {
+        this.projectId = -1;
+        this.codeName = codeName;
+    }
+
+    public void setAdditionalProperty(String name, String value) {
+        this.properties.put(name, value);
+    }
 
     public int getProjectId() {
         return projectId;
@@ -56,5 +75,14 @@ public class Project {
 
     public void setCustomerId(int customerId) {
         this.customerId = customerId;
+    }
+
+    public List<String> getShortSummary() {
+        List<String> lines = new ArrayList<String>();
+        lines.add(this.codeName);
+        for(Map.Entry<String, String> entry : this.properties.entrySet()) {
+            lines.add(entry.getValue());
+        }
+        return lines;
     }
 }

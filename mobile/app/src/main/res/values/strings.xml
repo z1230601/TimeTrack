@@ -74,5 +74,17 @@
     <string name="pref_general_password_default">Default</string>
     <string name="pref_general_server_address">Server Address</string>
     <string name="pref_general_server_port">Server Port</string>
-    <string name="title_activity_projects_view">ProjectsView</string>
+    <string name="title_activity_projects_view">Projects</string>
+    <string name="menu_home_title">Home</string>
+    <string name="menu_projects_title">Projects</string>
+    <string name="menu_assignments_title">Assignments</string>
+    <string name="menu_times_title">Hours</string>
+    <string name="menu_settings_title">Settings</string>
+    <string name="menu_accommodations_title">Accommodations</string>
+    <string name="menu_flights_title">Flights</string>
+    <string name="menu_additional_subsection_title">Additional</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 </resources>
