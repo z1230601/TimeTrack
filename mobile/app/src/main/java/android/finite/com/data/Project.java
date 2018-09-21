@@ -81,6 +81,10 @@ public class Project {
         this.properties.put(name, value);
     }
 
+    public Map<String, String> getProperties() {
+        return properties;
+    }
+
     public int getProjectId() {
         return projectId;
     }
@@ -125,5 +129,13 @@ public class Project {
     @Override
     public String toString() {
         return this.codeName;
+    }
+
+    public void setCountry(Country country) {
+        this.countryId = country.getCountryId();
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customerId = customer.getCustomerId();
     }
 }

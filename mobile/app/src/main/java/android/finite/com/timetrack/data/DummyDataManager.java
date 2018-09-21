@@ -3,7 +3,6 @@ package android.finite.com.timetrack.data;
 import android.finite.com.data.Country;
 import android.finite.com.data.Customer;
 import android.finite.com.data.Project;
-import android.location.Address;
 
 import com.google.android.gms.maps.model.LatLng;
 
@@ -14,9 +13,12 @@ import java.util.List;
 import java.util.Map;
 
 public class DummyDataManager extends DataManager {
-    List<Project> projects = new ArrayList<Project>();
+    Map<Integer, Project> projects = new LinkedHashMap<>();
     Map<Integer, Country> countries = new LinkedHashMap<>();
     Map<Integer, Customer> customers = new LinkedHashMap<>();
+    private int projectId = 0;
+    private int currentCustomerId = 0;
+    private int currentCountryId = 0;
 
     public DummyDataManager() {
         super();
@@ -27,104 +29,112 @@ public class DummyDataManager extends DataManager {
 
     private void initSampleCustomers() {
         {
-            int id = 0;
-            Customer customer = new Customer(id, "SOME FANCY NAME d.o.o", "Wienerstraße 27, 1040 Wien",
+            Customer customer = new Customer(this.currentCustomerId, "SOME FANCY NAME d.o.o", "Wienerstraße 27, 1040 Wien",
                     "SOME FANCY NAME d.o.o", "Wienerstraße 27, 1040 Wien",
                     "0043 664 555 555 55");
-            this.customers.put(id, customer);
+            this.customers.put(this.currentCustomerId, customer);
         }
+        this.currentCustomerId++;
         {
-            int id = 1;
-            Customer customer = new Customer(id, "Training LTD", "Appstreet 39, 90923932 Yangon",
+            Customer customer = new Customer(this.currentCustomerId, "Training LTD", "Appstreet 39, 90923932 Yangon",
                     "FT LTD", "Appstreet 39, 90923932 Yangon",
                     "0256 66 6565 65656");
-            this.customers.put(id, customer);
+            this.customers.put(this.currentCustomerId, customer);
         }
+        this.currentCustomerId++;
         {
-            int id = 2;
-            Customer customer = new Customer(id, "Swiss GmbH", "Züricherstraße 15, 9092 Genf",
+            Customer customer = new Customer(this.currentCustomerId, "Swiss GmbH", "Züricherstraße 15, 9092 Genf",
                     "Swiss GmbH", "Züricherstraße 39, 9092 Genf",
                     "001 66 6565 65656");
-            this.customers.put(id, customer);
+            this.customers.put(this.currentCustomerId, customer);
         }
+        this.currentCustomerId++;
         {
-            int id = 3;
-            Customer customer = new Customer(id, "Some Company LTD", "OnotherStreet 39, 90923932 Seattle",
+            Customer customer = new Customer(this.currentCustomerId, "Some Company LTD", "OnotherStreet 39, 90923932 Seattle",
                     "Some Company LTD", "OnotherStreet 39, 90923932 Seattle",
                     "0256 66 6565 65656");
-            this.customers.put(id, customer);
+            this.customers.put(this.currentCustomerId, customer);
         }
+        this.currentCustomerId++;
     }
 
     private void initSampleCountries() {
         {
-            Country country = new Country(0, "Germany",
+            Country country = new Country(this.currentCountryId, "Germany",
                     new LatLng(22.147920, 96.059790),Currency.getInstance("MMK"));
-            countries.put(0, country);
+            countries.put(this.currentCountryId, country);
         }
+        this.currentCountryId++;
         {
-            Country country = new Country(1, "Austria",
+            Country country = new Country(this.currentCountryId, "Austria",
                     new LatLng(47.376656, 14.180806),Currency.getInstance("EUR"));
-            countries.put(1, country);
+            countries.put(this.currentCountryId, country);
         }
+        this.currentCountryId++;
         {
-            Country country = new Country(2, "China",
+            Country country = new Country(this.currentCountryId, "China",
                     new LatLng(22.440366, 78.717554),Currency.getInstance("INR"));
-            countries.put(2, country);
+            countries.put(this.currentCountryId, country);
         }
+        this.currentCountryId++;
         {
-            Country country = new Country(3, "Australia",
+            Country country = new Country(this.currentCountryId, "Australia",
                     new LatLng(-24.793458, 133.714829),Currency.getInstance("AUD"));
-            countries.put(3, country);
+            countries.put(this.currentCountryId, country);
         }
+        this.currentCountryId++;
     }
 
     public void initProjectSampleData() {
         {
-            Project proj = new Project("Dog",0, 0, 0);
+            Project proj = new Project("Dog",this.projectId, 0, 0);
             proj.setAdditionalProperty("Aircraftype", "ATR72-500");
             proj.setAdditionalProperty("Country", "Germany");
-            projects.add(proj);
+            projects.put(this.projectId, proj);
         }
+        this.projectId++;
         {
-            Project proj = new Project("Hamster",1, 1, 1);
+            Project proj = new Project("Hamster",this.projectId, 1, 1);
             proj.setAdditionalProperty("Aircraftype", "ATR72-500");
             proj.setAdditionalProperty("Country", "Myanmar");
-            projects.add(proj);
+            projects.put(this.projectId, proj);
         }
+        this.projectId++;
         {
-            Project proj = new Project("Jojo",2, 2, 2);
+            Project proj = new Project("Jojo",this.projectId, 2, 2);
             proj.setAdditionalProperty("Aircraftype", "ATR72-600");
             proj.setAdditionalProperty("Country", "China");
-            projects.add(proj);
+            projects.put(this.projectId, proj);
         }
+        this.projectId++;
         {
-            Project proj = new Project("Kondor",3, 3, 3);
+            Project proj = new Project("Kondor",this.projectId, 3, 3);
             proj.setAdditionalProperty("Aircraftype", "ATR72-600");
             proj.setAdditionalProperty("Country", "Australia");
-            projects.add(proj);
+            projects.put(this.projectId, proj);
         }
+        this.projectId++;
         {
-            Project proj = new Project("Laprados",4, 3, 3);
+            Project proj = new Project("Laprados",this.projectId, 3, 3);
             proj.setAdditionalProperty("Aircraftype", "CJ1+");
             proj.setAdditionalProperty("Country", "Austria");
-            projects.add(proj);
+            projects.put(this.projectId, proj);
         }
+        this.projectId++;
     }
 
     @Override
     public List<Project> getProjects() {
-        return this.projects;
+        return new ArrayList<Project>(this.projects.values());
     }
 
     @Override
     public Project getProjectById(final int projectId) {
-        for(Project proj : this.projects) {
-            if(projectId == proj.getProjectId()){
-                return proj;
-            }
-        }
-        return null;
+        return this.projects.get(projectId);
+    }
+
+    public List<Country> getCountries() {
+        return new ArrayList<Country>(this.countries.values());
     }
 
     @Override
@@ -133,7 +143,23 @@ public class DummyDataManager extends DataManager {
     }
 
     @Override
+    public List<Customer> getCustomers() {
+        return new ArrayList<Customer>(this.customers.values());
+    }
+
+    @Override
     public Customer getCustomerById(int customerId) {
         return this.customers.get(customerId);
+    }
+
+
+    public void saveNewProject(Project project) {
+        project.setProjectId(this.projectId);
+        this.projects.put(this.projectId, project);
+        this.projectId++;
+    }
+
+    public void updateProject(Project project) {
+        this.projects.put(project.getProjectId(), project);
     }
 }

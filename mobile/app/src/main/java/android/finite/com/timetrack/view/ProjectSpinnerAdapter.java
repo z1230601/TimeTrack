@@ -5,10 +5,11 @@ import android.finite.com.data.Project;
 import android.finite.com.timetrack.R;
 import android.finite.com.timetrack.data.DataManager;
 import android.widget.ArrayAdapter;
+import android.widget.SpinnerAdapter;
 
 import java.util.List;
 
-public class ProjectSpinnerAdapter extends ArrayAdapter<Project> {
+public class ProjectSpinnerAdapter extends ArrayAdapter<Project> implements SpinnerAdapter {
     private final List<Project> projects;
 
     public ProjectSpinnerAdapter(Activity parent){

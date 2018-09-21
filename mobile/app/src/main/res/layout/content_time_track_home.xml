@@ -16,7 +16,7 @@
         <Spinner
             android:id="@+id/currentProject"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="@dimen/integrated_spinner_height"
             android:layout_margin="5dp"
             android:entries="@string/newProjectString"
             android:padding="5dp"
@@ -31,7 +31,7 @@
         <Spinner
             android:id="@+id/currentAssignment"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/spinner_height"
+            android:layout_height="@dimen/integrated_spinner_height"
             android:layout_margin="5dp"
             android:layout_weight="1"
             android:entries="@string/newAssign"
@@ -49,7 +49,7 @@
             android:layout_width="371dp"
             android:layout_height="101dp"
             android:layout_weight="1"
-            android:text="Start"
+            android:text="@string/start_track_time_button"
             tools:layout_editor_absoluteX="0dp"
             tools:layout_editor_absoluteY="278dp" />
     </TableRow>

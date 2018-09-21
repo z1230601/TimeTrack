@@ -20,6 +20,38 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_project_data_view" />
+    <include
+        android:id="@+id/include2"
+        layout="@layout/content_project_data_view"
+        android:layout_height="428dp" />
+
+    <Button
+        android:id="@+id/saveBtn"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/spinner_height"
+        android:background="@android:color/holo_green_dark"
+        android:text="Save"
+        app:layout_anchor="@+id/include2"
+        app:layout_anchorGravity="bottom|center" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/addPropertyFab"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        app:backgroundTint="@android:color/holo_green_dark"
+        app:layout_anchor="@+id/include2"
+        app:layout_anchorGravity="right|center"
+        app:srcCompat="@drawable/ic_add" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/deletePropertyFab"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        app:backgroundTint="@android:color/holo_green_dark"
+        app:layout_anchor="@+id/include2"
+        app:layout_anchorGravity="left|center"
+        app:srcCompat="@drawable/ic_delete" />
 
 </android.support.design.widget.CoordinatorLayout>

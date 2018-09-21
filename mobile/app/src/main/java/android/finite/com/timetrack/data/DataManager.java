@@ -28,6 +28,8 @@ public class DataManager {
     public List<Project> getProjects() {
         return new ArrayList<Project>();
     }
+    public List<Country> getCountries() { return new ArrayList<Country>();}
+    public List<Customer> getCustomers() {return new ArrayList<Customer>();}
 
     public Project getProjectById(final int projectId) {
         return new Project();
@@ -39,5 +41,12 @@ public class DataManager {
 
     public Customer getCustomerById(int customerId) {
         return null;
+    }
+
+
+    public void saveNewProject(Project project) {
+    }
+
+    public void updateProject(Project project) {
     }
 }

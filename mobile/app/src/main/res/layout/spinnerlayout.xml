@@ -3,7 +3,6 @@
     android:id="@+id/spinnerLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/holo_green_dark"
     android:orientation="horizontal">
 
 
@@ -13,7 +12,7 @@
         android:layout_height="@dimen/spinner_height"
         android:layout_marginBottom="2dp"
         android:layout_weight="1"
-        android:background="@color/holo_light_green_background"
+        android:background="@drawable/rounded_corner_rectangle_background"
         android:gravity="center_vertical|center"
         android:text="TextView"
         android:textSize="24sp"

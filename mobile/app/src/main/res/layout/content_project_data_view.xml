@@ -1,58 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/holo_light_green_background"
+    android:orientation="vertical"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".ProjectDataView"
     tools:showIn="@layout/activity_project_data_view">
 
-    <TableLayout
+
+    <EditText
+        android:id="@+id/codeName"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/holo_light_green_background">
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/description_projectName"
+        android:ems="10"
+        android:gravity="center_horizontal"
+        android:inputType="text"
+        android:text="@string/ProjectDataNameDescriptor" />
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
 
-            <EditText
-                android:id="@+id/codeName"
-                android:layout_width="332dp"
-                android:layout_height="wrap_content"
-                android:contentDescription="@string/description_projectName"
-                android:ems="10"
-                android:inputType="text"
-                android:text="@string/ProjectDataNameDescriptor" />
-        </TableRow>
+    <Spinner
+        android:id="@+id/countrySpinner"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/spinner_height" />
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+    <Spinner
+        android:id="@+id/customerSpinner"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/spinner_height" />
 
-            <Spinner
-                android:id="@+id/countrySpinner"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/spinner_height" />
-        </TableRow>
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_margin="15dp"
+        android:background="@android:color/holo_green_dark" />
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/propertiesList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-            <Spinner
-                android:id="@+id/customerId"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/spinner_height" />
-        </TableRow>
+    </android.support.v7.widget.RecyclerView>
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </TableLayout>
-</android.support.constraint.ConstraintLayout>
+</LinearLayout>

@@ -62,4 +62,9 @@ public class Country {
     public void setCurrency(Currency currency) {
         this.currency = currency;
     }
+
+    @Override
+    public String toString() {
+        return this.name;
+    }
 }
