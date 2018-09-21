@@ -4,8 +4,8 @@ import android.finite.com.data.Country;
 import android.finite.com.data.Customer;
 import android.finite.com.data.Project;
 import android.finite.com.timetrack.data.DataManager;
-import android.finite.com.timetrack.view.CountrySpinnerAdapter;
-import android.finite.com.timetrack.view.CustomerSpinnerAdapter;
+import android.finite.com.timetrack.view.spinner.CountrySpinnerAdapter;
+import android.finite.com.timetrack.view.spinner.CustomerSpinnerAdapter;
 import android.finite.com.timetrack.view.PropertyListAdapter;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -84,7 +84,7 @@ public class ProjectDataView extends AppCompatActivity implements View.OnClickLi
             this.listAdapter.addItem(entry.getKey(), entry.getValue());
         }
 
-        //TODO: add selction, add, delete of properties
+        //TODO: add selection, add, delete of properties
         //TODO: add Save
 
     }

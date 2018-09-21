@@ -45,6 +45,15 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="android.finite.com.timetrack.ProjectsView" />
         </activity>
+        <activity
+            android:name=".AssignmentsView"
+            android:label="@string/title_activity_assignments"
+            android:parentActivityName=".TimeTrackHome"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="android.finite.com.timetrack.TimeTrackHome" />
+        </activity>
     </application>
 
 </manifest>

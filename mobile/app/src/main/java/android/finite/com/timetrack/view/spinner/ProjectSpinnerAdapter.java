@@ -1,4 +1,4 @@
-package android.finite.com.timetrack.view;
+package android.finite.com.timetrack.view.spinner;
 
 import android.app.Activity;
 import android.finite.com.data.Project;

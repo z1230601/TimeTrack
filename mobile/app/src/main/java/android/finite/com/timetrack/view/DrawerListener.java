@@ -2,6 +2,7 @@ package android.finite.com.timetrack.view;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.finite.com.timetrack.AssignmentsView;
 import android.finite.com.timetrack.ProjectsView;
 import android.finite.com.timetrack.R;
 import android.finite.com.timetrack.Settings;
@@ -28,7 +29,9 @@ public class DrawerListener implements NavigationView.OnNavigationItemSelectedLi
             intent.setClass(this.parent, ProjectsView.class);
             parent.startActivity(intent);
         } else if (id == R.id.nav_assignments) {
-
+            Intent intent = new Intent();
+            intent.setClass(this.parent, AssignmentsView.class);
+            parent.startActivity(intent);
         } else if (id == R.id.nav_times) {
 
         } else if (id == R.id.nav_settings) {

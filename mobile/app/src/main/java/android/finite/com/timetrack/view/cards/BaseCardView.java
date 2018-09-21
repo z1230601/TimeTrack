@@ -1,9 +1,6 @@
-package android.finite.com.timetrack.view;
+package android.finite.com.timetrack.view.cards;
 
 import android.content.Context;
-import android.content.Intent;
-import android.finite.com.data.Project;
-import android.finite.com.timetrack.ProjectsView;
 import android.finite.com.utility.Convertors;
 import android.finite.com.utility.TextLayout;
 import android.graphics.Color;
@@ -22,31 +19,32 @@ import static android.graphics.Typeface.BOLD;
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
 
-public class ProjectCard extends CardView implements View.OnClickListener {
-    private final LinearLayout linesLayout;
-    private final ProjectsView parent;
-    private Project project = null;
-    private List<TextView> lines = new ArrayList<TextView>();
-    private boolean selected = false;
+public abstract class BaseCardView extends CardView implements View.OnClickListener {
+    protected final LinearLayout linesLayout;
+    protected final CardSelector parent;
+    protected List<TextView> lines = new ArrayList<TextView>();
+    protected boolean selected = false;
 
-    public ProjectCard(@NonNull Context context, Project project, ProjectsView parent) {
+
+    public abstract void create();
+
+    public BaseCardView(@NonNull Context context, CardSelector parent) {
         super(context);
-        this.project = project;
         this.parent = parent;
 
         initStyle();
 
         this.linesLayout = new LinearLayout(context);
-        this.linesLayout.setLayoutParams(new MarginLayoutParams(MATCH_PARENT, MATCH_PARENT));
+        this.linesLayout.setLayoutParams(new ViewGroup.MarginLayoutParams(MATCH_PARENT, MATCH_PARENT));
         this.linesLayout.setOrientation(LinearLayout.VERTICAL);
         addView(this.linesLayout);
         setOnClickListener(this);
     }
 
     public void initStyle() {
-        ViewGroup.MarginLayoutParams params = (MarginLayoutParams) getLayoutParams();
+        ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) getLayoutParams();
         if(params == null) {
-            params = new MarginLayoutParams(MATCH_PARENT, MATCH_PARENT);
+            params = new ViewGroup.MarginLayoutParams(MATCH_PARENT, MATCH_PARENT);
         }
         params.width = MATCH_PARENT;
         params.height = WRAP_CONTENT;
@@ -60,33 +58,11 @@ public class ProjectCard extends CardView implements View.OnClickListener {
         setPadding(marginValue, marginValue, marginValue, marginValue);
     }
 
-    public void create() {
-
-        if(this.project == null ){
-            return;
-        }
-        List<String> linesToDisplay = this.project.getShortSummary();
-        for (int i =0; i < linesToDisplay.size(); i++) {
-            String line = linesToDisplay.get(i);
-            TextLayout layout = TextLayout.SMALL;
-            if(i==0) {
-                layout = TextLayout.LARGE;
-            }
-            if(i==linesToDisplay.size()-1) {
-                layout = TextLayout.MEDIUM;
-            }
-            TextView lineView = getFreshTextView(layout);
-            lineView.setText(line);
-            this.lines.add(lineView);
-            linesLayout.addView(lineView);
-        }
-    }
-
     public TextView getFreshTextView(TextLayout layout) {
         TextView freshTextView = new TextView(getContext());
-        MarginLayoutParams params = (MarginLayoutParams) freshTextView.getLayoutParams();
+        ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) freshTextView.getLayoutParams();
         if(params == null ) {
-            params = new MarginLayoutParams(MATCH_PARENT, WRAP_CONTENT);
+            params = new ViewGroup.MarginLayoutParams(MATCH_PARENT, WRAP_CONTENT);
         }
         params.width = MATCH_PARENT;
         params.height = WRAP_CONTENT;
@@ -111,9 +87,5 @@ public class ProjectCard extends CardView implements View.OnClickListener {
 
     public void resetSelection() {
         setCardBackgroundColor(Color.WHITE);
-    }
-
-    public Project getAssociatedProject() {
-        return this.project;
     }
 }

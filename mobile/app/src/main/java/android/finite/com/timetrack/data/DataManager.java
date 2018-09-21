@@ -1,5 +1,6 @@
 package android.finite.com.timetrack.data;
 
+import android.finite.com.data.Assignment;
 import android.finite.com.data.Country;
 import android.finite.com.data.Customer;
 import android.finite.com.data.Project;
@@ -48,5 +49,9 @@ public class DataManager {
     }
 
     public void updateProject(Project project) {
+    }
+
+    public ArrayList<Assignment> getAssignments() {
+        return new ArrayList<Assignment>();
     }
 }

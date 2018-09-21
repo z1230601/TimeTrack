@@ -62,8 +62,8 @@
                         <option name="values">
                           <map>
                             <entry key="assetSourceType" value="FILE" />
-                            <entry key="outputName" value="ic_delete" />
-                            <entry key="sourceFile" value="$PROJECT_DIR$/../svgs/baseline-delete-24px.svg" />
+                            <entry key="outputName" value="ic_calendar" />
+                            <entry key="sourceFile" value="$PROJECT_DIR$/../svgs/baseline-calendar_today-24px.svg" />
                           </map>
                         </option>
                       </PersistentState>

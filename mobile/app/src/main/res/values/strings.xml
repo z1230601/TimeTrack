@@ -91,5 +91,6 @@
     <string name="ProjectDataView_prefixEditModeTitle">Edit </string>
     <string name="PojectDataView_newProjectTitle">New Project</string>
     <string name="start_track_time_button">Start</string>
+    <string name="title_activity_assignments">Assignments</string>
 
 </resources>

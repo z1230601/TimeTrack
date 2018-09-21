@@ -1,7 +1,6 @@
-package android.finite.com.timetrack.view;
+package android.finite.com.timetrack.view.spinner;
 
 import android.app.Activity;
-import android.finite.com.data.Country;
 import android.finite.com.data.Customer;
 import android.finite.com.timetrack.R;
 import android.finite.com.timetrack.data.DataManager;

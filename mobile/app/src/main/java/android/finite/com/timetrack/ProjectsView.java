@@ -3,12 +3,12 @@ package android.finite.com.timetrack;
 import android.content.Intent;
 import android.finite.com.data.Project;
 import android.finite.com.timetrack.data.DataManager;
+import android.finite.com.timetrack.view.cards.BaseCardView;
+import android.finite.com.timetrack.view.cards.CardSelector;
 import android.finite.com.timetrack.view.DrawerListener;
-import android.finite.com.timetrack.view.ProjectCard;
-import android.graphics.Color;
+import android.finite.com.timetrack.view.cards.ProjectCard;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -20,7 +20,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.LinearLayout;
 
-public class ProjectsView extends AppCompatActivity {
+public class ProjectsView extends AppCompatActivity implements CardSelector {
 
     private LinearLayout leftCards;
     private LinearLayout rightCards;
@@ -111,7 +111,12 @@ public class ProjectsView extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void setSelectedCard(ProjectCard selectedCard) {
+    public void setSelectedCard(BaseCardView card) {
+        if( !(card instanceof ProjectCard)) {
+            return;
+        }
+        ProjectCard selectedCard = (ProjectCard) card;
+
         if(this.selectedCard != null) {
             this.selectedCard.resetSelection();
         }

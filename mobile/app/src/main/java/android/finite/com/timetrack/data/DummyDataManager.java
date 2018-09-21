@@ -1,11 +1,15 @@
 package android.finite.com.timetrack.data;
 
+import android.finite.com.data.Assignment;
 import android.finite.com.data.Country;
 import android.finite.com.data.Customer;
 import android.finite.com.data.Project;
 
 import com.google.android.gms.maps.model.LatLng;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Currency;
 import java.util.LinkedHashMap;
@@ -16,15 +20,70 @@ public class DummyDataManager extends DataManager {
     Map<Integer, Project> projects = new LinkedHashMap<>();
     Map<Integer, Country> countries = new LinkedHashMap<>();
     Map<Integer, Customer> customers = new LinkedHashMap<>();
-    private int projectId = 0;
+    Map<Integer, Assignment> assignments = new LinkedHashMap<>();
+
+    private int currentProjectId = 0;
     private int currentCustomerId = 0;
     private int currentCountryId = 0;
+    private int currentAssignmentId = 0;
 
     public DummyDataManager() {
         super();
         initProjectSampleData();
         initSampleCountries();
         initSampleCustomers();
+        for(int i = 0; i < this.currentProjectId; i++) {
+            initAssigments(i);
+        }
+    }
+
+    private void initAssigments(int projectId) {
+        DateFormat format = new SimpleDateFormat("YYYY-mm-dd");
+        {
+            Assignment assign = null;
+            try {
+                assign = new Assignment(this.currentAssignmentId,
+                        format.parse("2018-03-23"),
+                        format.parse("2018-03-30"),
+                        "Do something really important.",
+                        "",
+                        "65464846186", projectId);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            this.assignments.put(this.currentAssignmentId, assign);
+        }
+        this.currentAssignmentId++;
+        {
+            Assignment assign = null;
+            try {
+                assign = new Assignment(this.currentAssignmentId,
+                        format.parse("2018-04-23"),
+                        format.parse("2018-04-30"),
+                        "Do something really important.",
+                        "",
+                        "65464846186", projectId);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            this.assignments.put(this.currentAssignmentId, assign);
+        }
+        this.currentAssignmentId++;
+        {
+            Assignment assign = null;
+            try {
+                assign = new Assignment(this.currentAssignmentId,
+                        format.parse("2018-05-23"),
+                        format.parse("2018-05-30"),
+                        "Do something really not that important.",
+                        "",
+                        "1234", projectId);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            this.assignments.put(this.currentAssignmentId, assign);
+        }
+        this.currentAssignmentId++;
     }
 
     private void initSampleCustomers() {
@@ -87,40 +146,40 @@ public class DummyDataManager extends DataManager {
 
     public void initProjectSampleData() {
         {
-            Project proj = new Project("Dog",this.projectId, 0, 0);
+            Project proj = new Project("Dog",this.currentProjectId, 0, 0);
             proj.setAdditionalProperty("Aircraftype", "ATR72-500");
             proj.setAdditionalProperty("Country", "Germany");
-            projects.put(this.projectId, proj);
+            projects.put(this.currentProjectId, proj);
         }
-        this.projectId++;
+        this.currentProjectId++;
         {
-            Project proj = new Project("Hamster",this.projectId, 1, 1);
+            Project proj = new Project("Hamster",this.currentProjectId, 1, 1);
             proj.setAdditionalProperty("Aircraftype", "ATR72-500");
             proj.setAdditionalProperty("Country", "Myanmar");
-            projects.put(this.projectId, proj);
+            projects.put(this.currentProjectId, proj);
         }
-        this.projectId++;
+        this.currentProjectId++;
         {
-            Project proj = new Project("Jojo",this.projectId, 2, 2);
+            Project proj = new Project("Jojo",this.currentProjectId, 2, 2);
             proj.setAdditionalProperty("Aircraftype", "ATR72-600");
             proj.setAdditionalProperty("Country", "China");
-            projects.put(this.projectId, proj);
+            projects.put(this.currentProjectId, proj);
         }
-        this.projectId++;
+        this.currentProjectId++;
         {
-            Project proj = new Project("Kondor",this.projectId, 3, 3);
+            Project proj = new Project("Kondor",this.currentProjectId, 3, 3);
             proj.setAdditionalProperty("Aircraftype", "ATR72-600");
             proj.setAdditionalProperty("Country", "Australia");
-            projects.put(this.projectId, proj);
+            projects.put(this.currentProjectId, proj);
         }
-        this.projectId++;
+        this.currentProjectId++;
         {
-            Project proj = new Project("Laprados",this.projectId, 3, 3);
+            Project proj = new Project("Laprados",this.currentProjectId, 3, 3);
             proj.setAdditionalProperty("Aircraftype", "CJ1+");
             proj.setAdditionalProperty("Country", "Austria");
-            projects.put(this.projectId, proj);
+            projects.put(this.currentProjectId, proj);
         }
-        this.projectId++;
+        this.currentProjectId++;
     }
 
     @Override
@@ -154,12 +213,19 @@ public class DummyDataManager extends DataManager {
 
 
     public void saveNewProject(Project project) {
-        project.setProjectId(this.projectId);
-        this.projects.put(this.projectId, project);
-        this.projectId++;
+        project.setProjectId(this.currentProjectId);
+        this.projects.put(this.currentProjectId, project);
+        this.currentProjectId++;
     }
 
+    @Override
     public void updateProject(Project project) {
         this.projects.put(project.getProjectId(), project);
     }
+
+    @Override
+    public ArrayList<Assignment> getAssignments() {
+        return new ArrayList<Assignment>(this.assignments.values());
+    }
+
 }

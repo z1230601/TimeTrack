@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/holo_light_green_background"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".AssignmentsView"
+    tools:showIn="@layout/app_bar_assignments"
+    android:orientation="vertical">
+
+    <Spinner
+        android:id="@+id/assignmentProjectSelector"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/integrated_spinner_height" />
+
+    <LinearLayout
+        android:id="@+id/assigmentsList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/assigmentNameLbl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical|center_horizontal"
+            android:text="ASSIGMENT NAME"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/dateLbl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical|center_horizontal"
+            android:text="DATE FROM TO ASSIGMENT"
+            android:textSize="14sp"
+            android:textStyle="italic" />
+
+        <TextView
+            android:id="@+id/yearLbl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical|center_horizontal"
+            android:text="YEAR" />
+
+        <TextView
+            android:id="@+id/taskDescriptionsLbl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical|center_horizontal"
+            android:text="TEXT DESCRIPTION" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/timesList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+</LinearLayout>

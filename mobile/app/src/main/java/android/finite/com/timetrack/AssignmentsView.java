@@ -1,14 +1,13 @@
 package android.finite.com.timetrack;
 
-import android.content.Intent;
-import android.finite.com.data.Assignment;
-import android.finite.com.data.Project;
-import android.finite.com.data.User;
-import android.finite.com.timetrack.data.DataManager;
-import android.finite.com.timetrack.data.DummyDataManager;
+import android.finite.com.timetrack.view.AssigmentsListAdapter;
 import android.finite.com.timetrack.view.DrawerListener;
-import android.finite.com.timetrack.view.spinner.ProjectSpinnerAdapter;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -17,22 +16,34 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Spinner;
 
-public class TimeTrackHome extends AppCompatActivity {
-    private User currentuser = null;
-    private Project currentProject = null;
-    private Assignment currentAssignment = null;
+public class AssignmentsView extends AppCompatActivity {
+
+    private LinearLayoutManager layoutManager;
+    private RecyclerView assigmentList;
+    private AssigmentsListAdapter adapater;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        DataManager.insertInstance(new DummyDataManager());
-
-        setContentView(R.layout.activity_time_track_home);
+        setContentView(R.layout.activity_assignments);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        this.layoutManager = new LinearLayoutManager(this);
+        this.assigmentList = (RecyclerView) findViewById(R.id.assigmentList);
+        this.adapater = new AssigmentsListAdapter();
+
+
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.addAssignmentFab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+        });
+
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -40,15 +51,8 @@ public class TimeTrackHome extends AppCompatActivity {
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(new DrawerListener(this));
-
-
-        Spinner currentProjectSpinner = (Spinner) findViewById(R.id.currentProject);
-        currentProjectSpinner.setAdapter(new ProjectSpinnerAdapter(this));
-
-        Spinner currentAssignmentSpinner = (Spinner) findViewById(R.id.currentAssignment);
     }
 
     @Override
@@ -64,7 +68,7 @@ public class TimeTrackHome extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.time_track_home, menu);
+        getMenuInflater().inflate(R.menu.assignments, menu);
         return true;
     }
 
@@ -77,14 +81,10 @@ public class TimeTrackHome extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            Intent intent = new Intent();
-            intent.setClass(this, Settings.class);
-            startActivity(intent);
             return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
-
 
 }
