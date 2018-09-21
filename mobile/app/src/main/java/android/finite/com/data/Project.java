@@ -11,7 +11,12 @@ import android.arch.persistence.room.Room;
 import android.content.Context;
 import android.finite.com.db.DataAccess;
 import android.finite.com.timetrack.data.DataManager;
+import android.finite.com.timetrack.view.cards.CardInformationProvider;
+import android.finite.com.utility.TextLayout;
+import android.finite.com.utility.Tuple;
 import android.provider.ContactsContract;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -28,7 +33,7 @@ import static android.arch.persistence.room.ForeignKey.CASCADE;
         childColumns = "customerId",
         onDelete = CASCADE)},
     indices = {@Index("projectId"),  @Index("countryId"), @Index("customerId")})
-public class Project {
+public class Project implements CardInformationProvider {
     @Ignore
     public static final String PROJECT_KEY = "PROJECT";
 
@@ -117,15 +122,6 @@ public class Project {
         this.customerId = customerId;
     }
 
-    public List<String> getShortSummary() {
-        List<String> lines = new ArrayList<String>();
-        lines.add(this.codeName);
-        for(Map.Entry<String, String> entry : this.properties.entrySet()) {
-            lines.add(entry.getValue());
-        }
-        return lines;
-    }
-
     @Override
     public String toString() {
         return this.codeName;
@@ -137,5 +133,24 @@ public class Project {
 
     public void setCustomer(Customer customer) {
         this.customerId = customer.getCustomerId();
+    }
+
+    @Override
+    public Tuple<TextLayout, String> getHeadLine() {
+        return new Tuple<TextLayout, String>(TextLayout.LARGE, this.codeName);
+    }
+
+    @Override
+    public Tuple<TextLayout, List<String>> getContentLines() {
+        List<String> lines = new ArrayList<String>();
+        for(Map.Entry<String, String> entry : this.properties.entrySet()) {
+            lines.add(entry.getValue());
+        }
+        return new Tuple<TextLayout, List<String>>(TextLayout.SMALL, lines);
+    }
+
+    @Override
+    public Tuple<TextLayout, String> getFootNote() {
+        return new Tuple<TextLayout, String>(TextLayout.MEDIUM, this.associatedCountry.getName());
     }
 }
