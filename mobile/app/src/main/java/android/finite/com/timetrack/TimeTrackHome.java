@@ -5,7 +5,9 @@ import android.finite.com.data.Assignment;
 import android.finite.com.data.Project;
 import android.finite.com.data.User;
 import android.finite.com.timetrack.data.DataManager;
+import android.finite.com.timetrack.data.DummyDataManager;
 import android.finite.com.timetrack.view.DrawerListener;
+import android.finite.com.timetrack.view.ProjectSpinnerAdapter;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -15,6 +17,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
 public class TimeTrackHome extends AppCompatActivity {
@@ -25,6 +28,9 @@ public class TimeTrackHome extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        DataManager.insertInstance(new DummyDataManager());
+
         setContentView(R.layout.activity_time_track_home);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -39,7 +45,10 @@ public class TimeTrackHome extends AppCompatActivity {
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(new DrawerListener(this));
 
+
         Spinner currentProjectSpinner = (Spinner) findViewById(R.id.currentProject);
+        currentProjectSpinner.setAdapter(new ProjectSpinnerAdapter(this));
+
         Spinner currentAssignmentSpinner = (Spinner) findViewById(R.id.currentAssignment);
     }
 

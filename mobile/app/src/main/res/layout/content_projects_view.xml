@@ -17,61 +17,46 @@
         android:background="@color/holo_light_green_background"
         android:orientation="vertical">
 
-        <android.support.v7.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            app:cardCornerRadius="5dp"
-            app:cardElevation="5dp"
-            app:contentPadding="5dp">
+        <!--<android.support.v7.widget.CardView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_margin="5dp"-->
+            <!--app:cardBackgroundColor="@android:color/holo_blue_light"-->
+            <!--app:cardCornerRadius="5dp"-->
+            <!--app:cardElevation="5dp"-->
+            <!--app:contentPadding="5dp">-->
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+            <!--<LinearLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:orientation="vertical">-->
 
-                <TextView
-                    android:id="@+id/textview1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical|center_horizontal"
-                    android:text="Project1"
-                    android:textSize="24sp"
-                    android:textStyle="bold" />
+                <!--<TextView-->
+                    <!--android:id="@+id/textview1"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:gravity="center_vertical|center_horizontal"-->
+                    <!--android:text="Project1"-->
+                    <!--android:textSize="24sp"-->
+                    <!--android:textStyle="bold" />-->
 
-                <TextView
-                    android:id="@+id/textview4"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical|center_horizontal"
-                    android:text="AnyType"
-                    android:textSize="8sp" />
+                <!--<TextView-->
+                    <!--android:id="@+id/textview4"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:gravity="center_vertical|center_horizontal"-->
+                    <!--android:text="AnyType"-->
+                    <!--android:textSize="8sp" />-->
 
-                <TextView
-                    android:id="@+id/textview"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical|center_horizontal"
-                    android:text="Österreich" />
-            </LinearLayout>
+                <!--<TextView-->
+                    <!--android:id="@+id/textview"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:gravity="center_vertical|center_horizontal"-->
+                    <!--android:text="Österreich" />-->
+            <!--</LinearLayout>-->
 
-        </android.support.v7.widget.CardView>
-
-        <android.support.v7.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            app:cardCornerRadius="5dp"
-            app:cardElevation="5dp"
-            app:contentPadding="5dp">
-
-            <TextView
-                android:id="@+id/textview3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical|center_horizontal"
-                android:text="Project3" />
-        </android.support.v7.widget.CardView>
+        <!--</android.support.v7.widget.CardView>-->
 
     </LinearLayout>
 

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.finite.com.timetrack.ProjectsView;
 import android.finite.com.timetrack.R;
 import android.finite.com.timetrack.Settings;
+import android.finite.com.timetrack.TimeTrackHome;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -38,6 +39,10 @@ public class DrawerListener implements NavigationView.OnNavigationItemSelectedLi
 
         } else if (id == R.id.nav_flights) {
 
+        } else if (id == R.id.nav_home) {
+            Intent intent = new Intent();
+            intent.setClass(this.parent, TimeTrackHome.class);
+            parent.startActivity(intent);
         }
 
         DrawerLayout drawer = (DrawerLayout) parent.findViewById(R.id.drawer_layout);

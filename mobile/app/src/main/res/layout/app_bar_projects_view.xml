@@ -20,15 +20,30 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_projects_view" />
+    <include
+        android:id="@+id/include"
+        layout="@layout/content_projects_view" />
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
+        android:id="@+id/addFab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
         app:backgroundTint="@android:color/holo_green_dark"
+        app:layout_anchor="@+id/include"
+        app:layout_anchorGravity="right|bottom"
         app:srcCompat="@android:drawable/ic_menu_add" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/editFab"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:visibility="gone"
+        app:backgroundTint="@android:color/holo_green_dark"
+        app:layout_anchor="@+id/include"
+        app:layout_anchorGravity="bottom|center"
+        app:srcCompat="@android:drawable/ic_menu_edit" />
 
 </android.support.design.widget.CoordinatorLayout>

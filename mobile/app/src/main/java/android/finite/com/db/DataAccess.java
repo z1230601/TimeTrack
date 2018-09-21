@@ -13,6 +13,8 @@ import android.finite.com.data.*;
 @TypeConverters({Converters.class})
 public abstract class DataAccess extends RoomDatabase {
 
+    public static final String DATABASE_NAME = "localTimeTrack";
+
     public abstract AssignmentDao assignmentDao();
     public abstract CountryDao countryDao();
     public abstract CustomerDao customerDao();

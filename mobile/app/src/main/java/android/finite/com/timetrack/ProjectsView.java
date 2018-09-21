@@ -1,8 +1,11 @@
 package android.finite.com.timetrack;
 
+import android.content.Intent;
 import android.finite.com.data.Project;
+import android.finite.com.timetrack.data.DataManager;
 import android.finite.com.timetrack.view.DrawerListener;
 import android.finite.com.timetrack.view.ProjectCard;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -19,6 +22,10 @@ import android.widget.LinearLayout;
 
 public class ProjectsView extends AppCompatActivity {
 
+    private LinearLayout leftCards;
+    private LinearLayout rightCards;
+    private ProjectCard selectedCard = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,14 +33,6 @@ public class ProjectsView extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -44,18 +43,40 @@ public class ProjectsView extends AppCompatActivity {
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(new DrawerListener(this));
 
+        this.leftCards = (LinearLayout) findViewById(R.id.PV_left_cards);
+        this.rightCards = (LinearLayout) findViewById(R.id.PV_right_cards);
+        for(int i=0; i < DataManager.get().getProjects().size(); i++) {
+            LinearLayout layout = (i % 2 == 0? leftCards : rightCards);
+            ProjectCard card = new ProjectCard(layout.getContext(),
+                    DataManager.get().getProjects().get(i), this);
+            card.create();
+            layout.addView(card);
+        }
+        {
+            FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.addFab);
+            fab.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent();
+                    intent.setClass(view.getContext(), ProjectDataView.class);
+                    startActivity(intent);
 
-        Project proj = new Project("jaguar");
-        proj.setAdditionalProperty("Aircraftype", "ATR72-600");
-        proj.setAdditionalProperty("Country", "Austria");
+                }
+            });
+        }
+        {
+            FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.editFab);
+            fab.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent();
+                    intent.setClass(view.getContext(), ProjectDataView.class);
+                    intent.putExtra(Project.PROJECT_KEY, selectedCard.getAssociatedProject().getProjectId());
+                    startActivity(intent);
 
-        LinearLayout leftCards = (LinearLayout) findViewById(R.id.PV_left_cards);
-        LinearLayout rightCards = (LinearLayout) findViewById(R.id.PV_right_cards);
-
-        ProjectCard card = new ProjectCard(rightCards.getContext(), proj);
-        card.create();
-
-        rightCards.addView(card);
+                }
+            });
+        }
     }
 
     @Override
@@ -88,5 +109,24 @@ public class ProjectsView extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void setSelectedCard(ProjectCard selectedCard) {
+        if(this.selectedCard != null) {
+            this.selectedCard.resetSelection();
+        }
+
+        if(this.selectedCard == selectedCard){
+            this.selectedCard = null;
+        } else {
+            this.selectedCard = selectedCard;
+        }
+        if ( this.selectedCard == null ) {
+            findViewById(R.id.editFab).setVisibility(View.GONE);
+        } else {
+            findViewById(R.id.editFab).setVisibility(View.VISIBLE);
+            this.selectedCard.setCardBackgroundColor(getResources().getColor(android.R.color.holo_blue_light));
+        }
+
     }
 }

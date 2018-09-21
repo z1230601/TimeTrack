@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/holo_light_green_background"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".TimeTrackHome"
     tools:showIn="@layout/app_bar_time_track_home">
@@ -16,7 +17,9 @@
             android:id="@+id/currentProject"
             android:layout_width="match_parent"
             android:layout_height="60dp"
+            android:layout_margin="5dp"
             android:entries="@string/newProjectString"
+            android:padding="5dp"
             tools:layout_editor_absoluteX="0dp"
             tools:layout_editor_absoluteY="56dp" />
     </TableRow>
@@ -28,9 +31,11 @@
         <Spinner
             android:id="@+id/currentAssignment"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="@dimen/spinner_height"
+            android:layout_margin="5dp"
             android:layout_weight="1"
             android:entries="@string/newAssign"
+            android:padding="5dp"
             tools:layout_editor_absoluteX="0dp"
             tools:layout_editor_absoluteY="167dp" />
     </TableRow>
