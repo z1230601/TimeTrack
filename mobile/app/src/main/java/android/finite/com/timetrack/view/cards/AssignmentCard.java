@@ -20,6 +20,10 @@ import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
 public class AssignmentCard extends BaseCardView {
     private  Assignment assignment = null;
 
+    public AssignmentCard(@NonNull Context context) {
+        super(context);
+    }
+
     public AssignmentCard(@NonNull Context context, Assignment assignment, CardSelector parent) {
         super(context, parent);
         this.assignment = assignment;
@@ -48,5 +52,9 @@ public class AssignmentCard extends BaseCardView {
 
     public Assignment getAssociatedAssignment() {
         return this.assignment;
+    }
+
+    public void setAssigment(Assignment assignment) {
+        this.assignment = assignment;
     }
 }

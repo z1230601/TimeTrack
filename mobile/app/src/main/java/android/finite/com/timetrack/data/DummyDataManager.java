@@ -39,7 +39,7 @@ public class DummyDataManager extends DataManager {
     }
 
     private void initAssigments(int projectId) {
-        DateFormat format = new SimpleDateFormat("YYYY-mm-dd");
+        DateFormat format = new SimpleDateFormat("YYYY-MM-dd");
         List<Assignment> projectAssigments = new ArrayList<>();
         {
             Assignment assign = null;
@@ -47,7 +47,7 @@ public class DummyDataManager extends DataManager {
                 assign = new Assignment(this.currentAssignmentId,
                         format.parse("2018-03-23"),
                         format.parse("2018-03-30"),
-                        "Do something really important.",
+                        "Do something really important." + projectId,
                         "",
                         "65464846186", projectId);
             } catch (ParseException e) {
@@ -65,7 +65,7 @@ public class DummyDataManager extends DataManager {
                 assign = new Assignment(this.currentAssignmentId,
                         format.parse("2018-04-23"),
                         format.parse("2018-04-30"),
-                        "Do something really important.",
+                        "Do something really important." + projectId,
                         "",
                         "65464846186", projectId);
             } catch (ParseException e) {
@@ -81,7 +81,7 @@ public class DummyDataManager extends DataManager {
                 assign = new Assignment(this.currentAssignmentId,
                         format.parse("2018-05-23"),
                         format.parse("2018-05-30"),
-                        "Do something really not that important.",
+                        "Do something really not that important."+ projectId,
                         "",
                         "1234", projectId);
             } catch (ParseException e) {
@@ -232,7 +232,11 @@ public class DummyDataManager extends DataManager {
         return new ArrayList<Assignment>(this.assignments.values());
     }
 
-    public ArrayList<Assignment> getAssignmentsForProject(int projectId) {
-        return new ArrayList<Assignment>();
+    @Override
+    public List<Assignment> getAssignmentsForProject(int projectId) {
+        if(this.projectAssigmentMapping.containsKey(projectId)){
+            return this.projectAssigmentMapping.get(projectId);
+        }
+        return super.getAssignmentsForProject(projectId);
     }
 }

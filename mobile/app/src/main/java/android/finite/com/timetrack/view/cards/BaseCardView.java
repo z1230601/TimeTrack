@@ -22,12 +22,23 @@ import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
 
 public abstract class BaseCardView extends CardView implements View.OnClickListener {
     protected final LinearLayout linesLayout;
-    protected final CardSelector parent;
+    protected CardSelector parent = null;
     protected List<TextView> lines = new ArrayList<TextView>();
     protected boolean selected = false;
 
 
     public abstract void create();
+    public BaseCardView(@NonNull Context context) {
+        super(context);
+
+        initStyle();
+
+        this.linesLayout = new LinearLayout(context);
+        this.linesLayout.setLayoutParams(new ViewGroup.MarginLayoutParams(MATCH_PARENT, MATCH_PARENT));
+        this.linesLayout.setOrientation(LinearLayout.VERTICAL);
+        addView(this.linesLayout);
+        setOnClickListener(this);
+    }
 
     public BaseCardView(@NonNull Context context, CardSelector parent) {
         super(context);
@@ -81,6 +92,10 @@ public abstract class BaseCardView extends CardView implements View.OnClickListe
     }
 
     public TextView getFreshTextView(Tuple<TextLayout, String> data) {
+        if(data == null) {
+            return null;
+        }
+
         TextView freshTextView = new TextView(getContext());
         MarginLayoutParams params = (MarginLayoutParams) freshTextView.getLayoutParams();
         if(params == null ) {
@@ -110,5 +125,9 @@ public abstract class BaseCardView extends CardView implements View.OnClickListe
 
     public void resetSelection() {
         setCardBackgroundColor(Color.WHITE);
+    }
+
+    public void setParent(CardSelector parent) {
+        this.parent = parent;
     }
 }

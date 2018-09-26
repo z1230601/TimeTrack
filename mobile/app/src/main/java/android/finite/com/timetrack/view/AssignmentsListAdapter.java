@@ -1,45 +1,50 @@
 package android.finite.com.timetrack.view;
 
 import android.finite.com.data.Assignment;
-import android.finite.com.timetrack.R;
 import android.finite.com.timetrack.data.DataManager;
-import android.support.v7.widget.CardView;
+import android.finite.com.timetrack.view.cards.AssignmentCard;
+import android.finite.com.timetrack.view.cards.CardSelector;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class AssignmentsListAdapter extends  RecyclerView.Adapter<AssignmentsListAdapter.DataViewHolder> {
 
-    private final ArrayList<Assignment> data;
+    private List<Assignment> data;
+    private final CardSelector parent;
 
     public static class DataViewHolder extends RecyclerView.ViewHolder {
-        public CardView cardView;
-        public DataViewHolder(CardView v) {
-            super(v);
-            cardView = v;
+        public AssignmentCard cardView;
+        public DataViewHolder(AssignmentCard card) {
+            super(card);
+            cardView = card;
 
         }
 
-        public void fillData(Assignment assignment) {
-            
+        public void fillData(Assignment assignment, CardSelector parent) {
+            this.cardView.setParent(parent);
+            this.cardView.setAssigment(assignment);
         }
     }
 
-    public AssignmentsListAdapter() {
-        this.data = DataManager.get().getAssignments();
+    public AssignmentsListAdapter(CardSelector cardSelector) {
+        this.parent = cardSelector;
 
+    }
+
+    public void setProject(int projectId) {
+        this.data = DataManager.get().getAssignmentsForProject(projectId);
+        System.out.println("Data changed to " + this.data.size());
+        notifyDataSetChanged();
     }
 
     // Create new views (invoked by the layout manager)
     @Override
     public DataViewHolder onCreateViewHolder(ViewGroup parent,
                                                                  int viewType) {
-        // create a new view
-        CardView v = (CardView) LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.assignment_list_item, parent, false);
-        return new AssignmentsListAdapter.DataViewHolder(v);
+        AssignmentCard card = new AssignmentCard(parent.getContext());
+        return new AssignmentsListAdapter.DataViewHolder(card);
     }
 
     // Replace the contents of a view (invoked by the layout manager)
@@ -47,14 +52,15 @@ public class AssignmentsListAdapter extends  RecyclerView.Adapter<AssignmentsLis
     public void onBindViewHolder(DataViewHolder holder, int position) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
-
-        // holder.mTextView.setText(this.data.get(position).getReadableString());
-        holder.fillData((Assignment) this.data.get(position));
-
+        holder.fillData((Assignment) this.data.get(position), this.parent);
+        holder.cardView.create();
     }
 
     @Override
     public int getItemCount() {
+        if(this.data == null) {
+            return 0;
+        }
         return this.data.size();
     }
 }

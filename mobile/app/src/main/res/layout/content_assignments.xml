@@ -19,11 +19,26 @@
         android:id="@+id/assigmentsList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="5dp"
         android:orientation="vertical">
+
+        <Button
+            android:id="@+id/assignmentMakeCurrent"
+            style="@android:style/Widget.Holo.Light.Button"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/integrated_spinner_height"
+            android:layout_gravity="center_vertical|center_horizontal"
+            android:layout_weight="1"
+            android:text="@string/AssignmentView_makeCurrentButtonTitle"
+            android:textAppearance="@style/TextAppearance.AppCompat" />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/assigmentList"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="wrap_content">
+
+        </android.support.v7.widget.RecyclerView>
+
     </LinearLayout>
+
 </LinearLayout>

@@ -10,10 +10,10 @@ import java.util.List;
 
 public class DataManager {
     private static DataManager instance = null;
+    protected Project currentProject;
+    protected Assignment currentAssigment;
 
-    protected DataManager() {
-
-    }
+    protected DataManager() {}
 
     public static void insertInstance(DataManager manager) {
         instance = manager;
@@ -55,5 +55,13 @@ public class DataManager {
         return new ArrayList<Assignment>();
     }
 
-    public ArrayList<Assignment> getAssignmentsForProject(int projectId) { return new ArrayList<Assignment>();}
+    public List<Assignment> getAssignmentsForProject(int projectId) { return new ArrayList<Assignment>();}
+
+    public void setCurrentProject(Project currentProject) {
+        this.currentProject = currentProject;
+    }
+
+    public void setCurrentAssigment(Assignment currentAssigment) {
+        this.currentAssigment = currentAssigment;
+    }
 }

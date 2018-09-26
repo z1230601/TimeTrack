@@ -152,13 +152,19 @@ public class Assignment implements CardInformationProvider {
     public Tuple<TextLayout, List<String>> getContentLines() {
         List<String> lines = new ArrayList<>();
         SimpleDateFormat format = new SimpleDateFormat("dd.MM");
-        lines.add(format.format(this.toDate) + " - " + format.format(this.fromDate));
+        lines.add(format.format(this.fromDate) + " - " + format.format(this.toDate));
+        SimpleDateFormat yearFormat = new SimpleDateFormat("YYYY");
+        if(this.toDate.getYear() == this.fromDate.getYear()){
+            lines.add(yearFormat.format(this.toDate));
+        }else {
+            lines.add(yearFormat.format(this.fromDate) + "/" + yearFormat.format(this.toDate));
+        }
         lines.add(this.taskDescription);
         return new Tuple<>(TextLayout.SMALL, lines);
     }
 
     @Override
     public Tuple<TextLayout, String> getFootNote() {
-        return null;
+        return new Tuple<>(TextLayout.MEDIUM, this.workingPackage);
     }
 }
