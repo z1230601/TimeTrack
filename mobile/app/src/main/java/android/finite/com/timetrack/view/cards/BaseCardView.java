@@ -3,6 +3,7 @@ package android.finite.com.timetrack.view.cards;
 import android.content.Context;
 import android.finite.com.utility.Convertors;
 import android.finite.com.utility.TextLayout;
+import android.finite.com.utility.Tuple;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
@@ -76,6 +77,28 @@ public abstract class BaseCardView extends CardView implements View.OnClickListe
         }
 
         freshTextView.setGravity(Gravity.CENTER_HORIZONTAL|Gravity.CENTER_VERTICAL);
+        return freshTextView;
+    }
+
+    public TextView getFreshTextView(Tuple<TextLayout, String> data) {
+        TextView freshTextView = new TextView(getContext());
+        MarginLayoutParams params = (MarginLayoutParams) freshTextView.getLayoutParams();
+        if(params == null ) {
+            params = new MarginLayoutParams(MATCH_PARENT, WRAP_CONTENT);
+        }
+        params.width = MATCH_PARENT;
+        params.height = WRAP_CONTENT;
+        freshTextView.setLayoutParams(params);
+        if(data.first == TextLayout.LARGE) {
+            freshTextView.setTextSize(Convertors.convertSpToPx(freshTextView.getContext(), 9));
+            freshTextView.setTypeface(null, BOLD);
+        }
+        if(data.first == TextLayout.SMALL) {
+            freshTextView.setTextSize(Convertors.convertSpToPx(freshTextView.getContext(), 4));
+        }
+
+        freshTextView.setGravity(Gravity.CENTER_HORIZONTAL|Gravity.CENTER_VERTICAL);
+        freshTextView.setText(data.second);
         return freshTextView;
     }
 

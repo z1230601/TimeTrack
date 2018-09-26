@@ -31,35 +31,22 @@ public class ProjectCard extends BaseCardView {
         if(this.project == null ){
             return;
         }
+        this.linesLayout.removeAllViews();
+        this.lines.clear();
+
         this.lines.add(getFreshTextView(this.project.getHeadLine()));
         Tuple<TextLayout, List<String>> contentLines = this.project.getContentLines();
         for(String line : contentLines.second) {
             this.lines.add(getFreshTextView(new Tuple<TextLayout, String>(contentLines.first, line)));
+
         }
         this.lines.add(getFreshTextView(this.project.getFootNote()));
+
+        for(TextView line : lines) {
+            this.linesLayout.addView(line);
+        }
     }
 
-    public TextView getFreshTextView(Tuple<TextLayout, String> data) {
-        TextView freshTextView = new TextView(getContext());
-        MarginLayoutParams params = (MarginLayoutParams) freshTextView.getLayoutParams();
-        if(params == null ) {
-            params = new MarginLayoutParams(MATCH_PARENT, WRAP_CONTENT);
-        }
-        params.width = MATCH_PARENT;
-        params.height = WRAP_CONTENT;
-        freshTextView.setLayoutParams(params);
-        if(data.first == TextLayout.LARGE) {
-            freshTextView.setTextSize(Convertors.convertSpToPx(freshTextView.getContext(), 9));
-            freshTextView.setTypeface(null, BOLD);
-        }
-        if(data.first == TextLayout.SMALL) {
-            freshTextView.setTextSize(Convertors.convertSpToPx(freshTextView.getContext(), 4));
-        }
-
-        freshTextView.setGravity(Gravity.CENTER_HORIZONTAL|Gravity.CENTER_VERTICAL);
-        freshTextView.setText(data.second);
-        return freshTextView;
-    }
 
     public Project getAssociatedProject() {
         return this.project;

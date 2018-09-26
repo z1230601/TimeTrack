@@ -20,11 +20,15 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.LinearLayout;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ProjectsView extends AppCompatActivity implements CardSelector {
 
     private LinearLayout leftCards;
     private LinearLayout rightCards;
     private ProjectCard selectedCard = null;
+    private List<ProjectCard> projectCards = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,13 +49,9 @@ public class ProjectsView extends AppCompatActivity implements CardSelector {
 
         this.leftCards = (LinearLayout) findViewById(R.id.PV_left_cards);
         this.rightCards = (LinearLayout) findViewById(R.id.PV_right_cards);
-        for(int i=0; i < DataManager.get().getProjects().size(); i++) {
-            LinearLayout layout = (i % 2 == 0? leftCards : rightCards);
-            ProjectCard card = new ProjectCard(layout.getContext(),
-                    DataManager.get().getProjects().get(i), this);
-            card.create();
-            layout.addView(card);
-        }
+
+        createCards();
+
         {
             FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.addFab);
             fab.setOnClickListener(new View.OnClickListener() {
@@ -76,6 +76,20 @@ public class ProjectsView extends AppCompatActivity implements CardSelector {
 
                 }
             });
+        }
+    }
+
+    private void createCards() {
+        this.projectCards.clear();
+        this.leftCards.removeAllViews();
+        this.rightCards.removeAllViews();
+        for(int i=0; i < DataManager.get().getProjects().size(); i++) {
+            LinearLayout layout = (i % 2 == 0? leftCards : rightCards);
+            ProjectCard card = new ProjectCard(layout.getContext(),
+                    DataManager.get().getProjects().get(i), this);
+            card.create();
+            layout.addView(card);
+            this.projectCards.add(card);
         }
     }
 
@@ -134,4 +148,11 @@ public class ProjectsView extends AppCompatActivity implements CardSelector {
         }
 
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        createCards();
+    }
+
 }

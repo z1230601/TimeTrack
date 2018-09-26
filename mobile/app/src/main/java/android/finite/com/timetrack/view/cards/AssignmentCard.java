@@ -6,6 +6,7 @@ import android.finite.com.data.Project;
 import android.finite.com.timetrack.ProjectsView;
 import android.finite.com.utility.Convertors;
 import android.finite.com.utility.TextLayout;
+import android.finite.com.utility.Tuple;
 import android.support.annotation.NonNull;
 import android.view.Gravity;
 import android.widget.TextView;
@@ -29,42 +30,20 @@ public class AssignmentCard extends BaseCardView {
         if(this.assignment == null ){
             return;
         }
-//        List<String> linesToDisplay = this.assignment.getShortSummary();
-//        for (int i =0; i < linesToDisplay.size(); i++) {
-//            String line = linesToDisplay.get(i);
-//            TextLayout layout = TextLayout.SMALL;
-//            if(i==0) {
-//                layout = TextLayout.LARGE;
-//            }
-//            if(i==linesToDisplay.size()-1) {
-//                layout = TextLayout.MEDIUM;
-//            }
-//            TextView lineView = getFreshTextView(layout);
-//            lineView.setText(line);
-//            this.lines.add(lineView);
-//            linesLayout.addView(lineView);
-//        }
-    }
+        this.linesLayout.removeAllViews();
+        this.lines.clear();
 
-    public TextView getFreshTextView(TextLayout layout) {
-        TextView freshTextView = new TextView(getContext());
-        MarginLayoutParams params = (MarginLayoutParams) freshTextView.getLayoutParams();
-        if(params == null ) {
-            params = new MarginLayoutParams(MATCH_PARENT, WRAP_CONTENT);
-        }
-        params.width = MATCH_PARENT;
-        params.height = WRAP_CONTENT;
-        freshTextView.setLayoutParams(params);
-        if(layout == TextLayout.LARGE) {
-            freshTextView.setTextSize(Convertors.convertSpToPx(freshTextView.getContext(), 9));
-            freshTextView.setTypeface(null, BOLD);
-        }
-        if(layout == TextLayout.SMALL) {
-            freshTextView.setTextSize(Convertors.convertSpToPx(freshTextView.getContext(), 4));
-        }
+        this.lines.add(getFreshTextView(this.assignment.getHeadLine()));
+        Tuple<TextLayout, List<String>> contentLines = this.assignment.getContentLines();
+        for(String line : contentLines.second) {
+            this.lines.add(getFreshTextView(new Tuple<TextLayout, String>(contentLines.first, line)));
 
-        freshTextView.setGravity(Gravity.CENTER_HORIZONTAL|Gravity.CENTER_VERTICAL);
-        return freshTextView;
+        }
+        this.lines.add(getFreshTextView(this.assignment.getFootNote()));
+
+        for(TextView line : lines) {
+            this.linesLayout.addView(line);
+        }
     }
 
     public Assignment getAssociatedAssignment() {

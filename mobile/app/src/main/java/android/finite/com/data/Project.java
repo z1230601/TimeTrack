@@ -129,10 +129,12 @@ public class Project implements CardInformationProvider {
 
     public void setCountry(Country country) {
         this.countryId = country.getCountryId();
+        this.associatedCountry = country;
     }
 
     public void setCustomer(Customer customer) {
         this.customerId = customer.getCustomerId();
+        this.associatedCustomer = customer;
     }
 
     @Override
@@ -151,6 +153,9 @@ public class Project implements CardInformationProvider {
 
     @Override
     public Tuple<TextLayout, String> getFootNote() {
+        if(this.associatedCountry == null) {
+            init();
+        }
         return new Tuple<TextLayout, String>(TextLayout.MEDIUM, this.associatedCountry.getName());
     }
 }

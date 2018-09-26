@@ -1,10 +1,12 @@
 package android.finite.com.timetrack;
 
-import android.finite.com.timetrack.view.AssigmentsListAdapter;
+import android.finite.com.data.Assignment;
+import android.finite.com.data.Project;
+import android.finite.com.timetrack.data.DataManager;
+import android.finite.com.timetrack.view.AssignmentsListAdapter;
 import android.finite.com.timetrack.view.DrawerListener;
+import android.finite.com.timetrack.view.spinner.ProjectSpinnerAdapter;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -16,12 +18,28 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.AdapterView;
+import android.widget.Spinner;
+
+import java.util.List;
 
 public class AssignmentsView extends AppCompatActivity {
 
     private LinearLayoutManager layoutManager;
     private RecyclerView assigmentList;
-    private AssigmentsListAdapter adapater;
+    private AssignmentsListAdapter adapater;
+    private Spinner currentProjectSpinner;
+
+    private AdapterView.OnItemClickListener projectSwitchListener = new AdapterView.OnItemClickListener() {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            if(currentProjectSpinner != null) {
+                Project item = (Project) currentProjectSpinner.getItemAtPosition(position);
+                reloadAssigments(item.getProjectId());
+            }
+        }
+    };
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,19 +47,21 @@ public class AssignmentsView extends AppCompatActivity {
         setContentView(R.layout.activity_assignments);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
         this.layoutManager = new LinearLayoutManager(this);
         this.assigmentList = (RecyclerView) findViewById(R.id.assigmentList);
-        this.adapater = new AssigmentsListAdapter();
+        this.adapater = new AssignmentsListAdapter();
+        this.assigmentList.setAdapter(this.adapater);
 
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.addAssignmentFab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+//
+//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.addAssignmentFab);
+//        fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
+//            }
+//        });
 
 
 
@@ -51,8 +71,17 @@ public class AssignmentsView extends AppCompatActivity {
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
+        this.currentProjectSpinner = (Spinner) findViewById(R.id.assignmentProjectSelector);
+        currentProjectSpinner.setAdapter(new ProjectSpinnerAdapter(this));
+        currentProjectSpinner.setOnItemClickListener(this.projectSwitchListener);
+
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(new DrawerListener(this));
+    }
+
+    private void reloadAssigments(int projectId) {
+        List<Assignment> assigments = DataManager.get().getAssignmentsForProject(projectId);
+
     }
 
     @Override

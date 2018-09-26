@@ -54,4 +54,6 @@ public class DataManager {
     public ArrayList<Assignment> getAssignments() {
         return new ArrayList<Assignment>();
     }
+
+    public ArrayList<Assignment> getAssignmentsForProject(int projectId) { return new ArrayList<Assignment>();}
 }

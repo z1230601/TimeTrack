@@ -92,5 +92,10 @@
     <string name="PojectDataView_newProjectTitle">New Project</string>
     <string name="start_track_time_button">Start</string>
     <string name="title_activity_assignments">Assignments</string>
+    <string name="dialog_property_message">Enter the key value Pair of the Project.</string>
+    <string name="dialog_property_confirm_button">Save</string>
+    <string name="dialog_property_cancel_button">Cancel</string>
+    <string name="key_hint">Key</string>
+    <string name="value_hint">Value</string>
 
 </resources>

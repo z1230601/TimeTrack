@@ -21,6 +21,7 @@ public class DummyDataManager extends DataManager {
     Map<Integer, Country> countries = new LinkedHashMap<>();
     Map<Integer, Customer> customers = new LinkedHashMap<>();
     Map<Integer, Assignment> assignments = new LinkedHashMap<>();
+    Map<Integer, List<Assignment>> projectAssigmentMapping = new LinkedHashMap<>();
 
     private int currentProjectId = 0;
     private int currentCustomerId = 0;
@@ -39,6 +40,7 @@ public class DummyDataManager extends DataManager {
 
     private void initAssigments(int projectId) {
         DateFormat format = new SimpleDateFormat("YYYY-mm-dd");
+        List<Assignment> projectAssigments = new ArrayList<>();
         {
             Assignment assign = null;
             try {
@@ -51,7 +53,10 @@ public class DummyDataManager extends DataManager {
             } catch (ParseException e) {
                 e.printStackTrace();
             }
+
             this.assignments.put(this.currentAssignmentId, assign);
+            projectAssigments.add(assign);
+
         }
         this.currentAssignmentId++;
         {
@@ -67,6 +72,7 @@ public class DummyDataManager extends DataManager {
                 e.printStackTrace();
             }
             this.assignments.put(this.currentAssignmentId, assign);
+            projectAssigments.add(assign);
         }
         this.currentAssignmentId++;
         {
@@ -82,8 +88,11 @@ public class DummyDataManager extends DataManager {
                 e.printStackTrace();
             }
             this.assignments.put(this.currentAssignmentId, assign);
+            projectAssigments.add(assign);
         }
         this.currentAssignmentId++;
+
+        this.projectAssigmentMapping.put(projectId, projectAssigments);
     }
 
     private void initSampleCustomers() {
@@ -148,35 +157,30 @@ public class DummyDataManager extends DataManager {
         {
             Project proj = new Project("Dog",this.currentProjectId, 0, 0);
             proj.setAdditionalProperty("Aircraftype", "ATR72-500");
-            proj.setAdditionalProperty("Country", "Germany");
             projects.put(this.currentProjectId, proj);
         }
         this.currentProjectId++;
         {
             Project proj = new Project("Hamster",this.currentProjectId, 1, 1);
             proj.setAdditionalProperty("Aircraftype", "ATR72-500");
-            proj.setAdditionalProperty("Country", "Myanmar");
             projects.put(this.currentProjectId, proj);
         }
         this.currentProjectId++;
         {
             Project proj = new Project("Jojo",this.currentProjectId, 2, 2);
             proj.setAdditionalProperty("Aircraftype", "ATR72-600");
-            proj.setAdditionalProperty("Country", "China");
             projects.put(this.currentProjectId, proj);
         }
         this.currentProjectId++;
         {
             Project proj = new Project("Kondor",this.currentProjectId, 3, 3);
             proj.setAdditionalProperty("Aircraftype", "ATR72-600");
-            proj.setAdditionalProperty("Country", "Australia");
             projects.put(this.currentProjectId, proj);
         }
         this.currentProjectId++;
         {
             Project proj = new Project("Laprados",this.currentProjectId, 3, 3);
             proj.setAdditionalProperty("Aircraftype", "CJ1+");
-            proj.setAdditionalProperty("Country", "Austria");
             projects.put(this.currentProjectId, proj);
         }
         this.currentProjectId++;
@@ -228,4 +232,7 @@ public class DummyDataManager extends DataManager {
         return new ArrayList<Assignment>(this.assignments.values());
     }
 
+    public ArrayList<Assignment> getAssignmentsForProject(int projectId) {
+        return new ArrayList<Assignment>();
+    }
 }

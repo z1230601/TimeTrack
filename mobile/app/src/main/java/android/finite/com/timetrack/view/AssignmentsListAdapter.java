@@ -7,11 +7,10 @@ import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class AssigmentsListAdapter extends  RecyclerView.Adapter<AssigmentsListAdapter.DataViewHolder> {
+public class AssignmentsListAdapter extends  RecyclerView.Adapter<AssignmentsListAdapter.DataViewHolder> {
 
     private final ArrayList<Assignment> data;
 
@@ -22,9 +21,13 @@ public class AssigmentsListAdapter extends  RecyclerView.Adapter<AssigmentsListA
             cardView = v;
 
         }
+
+        public void fillData(Assignment assignment) {
+            
+        }
     }
 
-    public AssigmentsListAdapter() {
+    public AssignmentsListAdapter() {
         this.data = DataManager.get().getAssignments();
 
     }
@@ -36,7 +39,7 @@ public class AssigmentsListAdapter extends  RecyclerView.Adapter<AssigmentsListA
         // create a new view
         CardView v = (CardView) LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.assignment_list_item, parent, false);
-        return new AssigmentsListAdapter.DataViewHolder(v);
+        return new AssignmentsListAdapter.DataViewHolder(v);
     }
 
     // Replace the contents of a view (invoked by the layout manager)
@@ -46,6 +49,7 @@ public class AssigmentsListAdapter extends  RecyclerView.Adapter<AssigmentsListA
         // - replace the contents of the view with that element
 
         // holder.mTextView.setText(this.data.get(position).getReadableString());
+        holder.fillData((Assignment) this.data.get(position));
 
     }
 

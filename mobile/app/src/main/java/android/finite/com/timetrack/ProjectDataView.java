@@ -1,13 +1,18 @@
 package android.finite.com.timetrack;
 
+import android.app.DialogFragment;
+import android.content.Intent;
 import android.finite.com.data.Country;
 import android.finite.com.data.Customer;
 import android.finite.com.data.Project;
 import android.finite.com.timetrack.data.DataManager;
+import android.finite.com.timetrack.view.dialogs.PropertyInsertDialog;
 import android.finite.com.timetrack.view.spinner.CountrySpinnerAdapter;
 import android.finite.com.timetrack.view.spinner.CustomerSpinnerAdapter;
 import android.finite.com.timetrack.view.PropertyListAdapter;
+import android.finite.com.utility.Tuple;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -19,7 +24,7 @@ import android.widget.TextView;
 
 import java.util.Map;
 
-public class ProjectDataView extends AppCompatActivity implements View.OnClickListener {
+public class ProjectDataView extends AppCompatActivity implements View.OnClickListener, PropertyInsertDialog.PropertyDialogListener {
     private Project exisitingProject = null;
     private CountrySpinnerAdapter countryAdapter = null;
     private CustomerSpinnerAdapter customerSpinnerAdapter;
@@ -39,11 +44,20 @@ public class ProjectDataView extends AppCompatActivity implements View.OnClickLi
         this.saveBtn = (Button) findViewById(R.id.saveBtn);
         this.saveBtn.setOnClickListener(this);
 
+        this.codeName = (TextView) findViewById(R.id.codeName);
         this.propertyList = (RecyclerView) findViewById(R.id.propertiesList);
         this.layoutManager = new LinearLayoutManager(this);
 
         this.propertyList.setHasFixedSize(true);
         this.propertyList.setLayoutManager(this.layoutManager);
+
+        this.countrySpinner = (Spinner) findViewById(R.id.countrySpinner);
+        this.countryAdapter = new CountrySpinnerAdapter(this);
+        this.countrySpinner.setAdapter(this.countryAdapter);
+
+        this.customerSpinner = (Spinner) findViewById(R.id.customerSpinner);
+        this.customerSpinnerAdapter = new CustomerSpinnerAdapter(this);
+        this.customerSpinner.setAdapter(new CustomerSpinnerAdapter(this));
 
         if (getIntent().getExtras() != null &&
                 getIntent().getExtras().containsKey(Project.PROJECT_KEY)) {
@@ -63,17 +77,10 @@ public class ProjectDataView extends AppCompatActivity implements View.OnClickLi
     private void initFromProject(int projectId, Toolbar toolbar) {
 
         this.exisitingProject = DataManager.get().getProjectById(projectId);
-        this.codeName = (TextView) findViewById(R.id.codeName);
         codeName.setText(this.exisitingProject.getCodeName());
 
-        this.countrySpinner = (Spinner) findViewById(R.id.countrySpinner);
-        this.countryAdapter = new CountrySpinnerAdapter(this);
-        countrySpinner.setAdapter(this.countryAdapter);
-        preslectIdInSpinner(countrySpinner, this.countryAdapter.getIndex(this.exisitingProject.getCountryId()));
 
-        this.customerSpinner = (Spinner) findViewById(R.id.customerSpinner);
-        this.customerSpinnerAdapter = new CustomerSpinnerAdapter(this);
-        customerSpinner.setAdapter(new CustomerSpinnerAdapter(this));
+        preslectIdInSpinner(countrySpinner, this.countryAdapter.getIndex(this.exisitingProject.getCountryId()));
         preslectIdInSpinner(customerSpinner, this.customerSpinnerAdapter.getIndex(this.exisitingProject.getCustomerId()));
 
         toolbar.setTitle(getResources().getString(R.string.ProjectDataView_prefixEditModeTitle) +
@@ -85,7 +92,16 @@ public class ProjectDataView extends AppCompatActivity implements View.OnClickLi
         }
 
         //TODO: add selection, add, delete of properties
-        //TODO: add Save
+        {
+            FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.addPropertyFab);
+            fab.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    PropertyInsertDialog dialog = new PropertyInsertDialog();
+                    dialog.show(getFragmentManager(), "PropertyInsertDialog");
+                }
+            });
+        }
 
     }
 
@@ -107,5 +123,15 @@ public class ProjectDataView extends AppCompatActivity implements View.OnClickLi
             DataManager.get().updateProject(this.exisitingProject);
         }
         finish();
+    }
+
+    @Override
+    public void setProperty(Tuple<String, String> data) {
+        if(this.exisitingProject != null) {
+            this.exisitingProject.setAdditionalProperty(data.first, data.second);
+            //TODO recreated list and/or add item
+        } else {
+            //TODO figure out a good way to save data if no existing project present
+        }
     }
 }

@@ -7,7 +7,14 @@ import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
 import android.arch.persistence.room.TypeConverters;
+import android.finite.com.timetrack.view.cards.CardInformationProvider;
+import android.finite.com.utility.TextLayout;
+import android.finite.com.utility.Tuple;
 
+import org.w3c.dom.Text;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -27,7 +34,7 @@ import static android.arch.persistence.room.ForeignKey.CASCADE;
         indices = {@Index("assignmentId"),
                 //@Index("hotelId"),
                 @Index("projectId")})
-public class Assignment {
+public class Assignment implements CardInformationProvider {
     @PrimaryKey(autoGenerate=true)
     private int assignmentId;
     @ColumnInfo(name="from")
@@ -134,5 +141,24 @@ public class Assignment {
 
     public void setParentProject(int parentProject) {
         this.parentProject = parentProject;
+    }
+
+    @Override
+    public Tuple<TextLayout, String> getHeadLine() {
+        return new Tuple<>(TextLayout.LARGE, this.taskDescription);
+    }
+
+    @Override
+    public Tuple<TextLayout, List<String>> getContentLines() {
+        List<String> lines = new ArrayList<>();
+        SimpleDateFormat format = new SimpleDateFormat("dd.MM");
+        lines.add(format.format(this.toDate) + " - " + format.format(this.fromDate));
+        lines.add(this.taskDescription);
+        return new Tuple<>(TextLayout.SMALL, lines);
+    }
+
+    @Override
+    public Tuple<TextLayout, String> getFootNote() {
+        return null;
     }
 }
