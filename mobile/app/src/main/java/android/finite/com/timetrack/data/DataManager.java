@@ -11,7 +11,7 @@ import java.util.List;
 public class DataManager {
     private static DataManager instance = null;
     protected Project currentProject;
-    protected Assignment currentAssigment;
+    protected Assignment currentAssignment;
 
     protected DataManager() {}
 
@@ -61,7 +61,19 @@ public class DataManager {
         this.currentProject = currentProject;
     }
 
-    public void setCurrentAssigment(Assignment currentAssigment) {
-        this.currentAssigment = currentAssigment;
+    public void setCurrentAssignment(Assignment currentAssignment) {
+        this.currentAssignment = currentAssignment;
+    }
+
+    public List<Assignment> getCurrentAssigments() {
+        return this.getAssignmentsForProject(this.currentProject.getProjectId());
+    }
+
+    public Assignment getSelectedAssignment() {
+        return this.currentAssignment;
+    }
+
+    public Project getSelectedProject() {
+        return this.currentProject;
     }
 }

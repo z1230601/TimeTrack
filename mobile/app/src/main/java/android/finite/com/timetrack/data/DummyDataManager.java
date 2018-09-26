@@ -36,6 +36,8 @@ public class DummyDataManager extends DataManager {
         for(int i = 0; i < this.currentProjectId; i++) {
             initAssigments(i);
         }
+        this.currentProject = this.projects.get(0);
+        this.currentAssignment = this.projectAssigmentMapping.get(0).get(0);
     }
 
     private void initAssigments(int projectId) {
@@ -45,6 +47,7 @@ public class DummyDataManager extends DataManager {
             Assignment assign = null;
             try {
                 assign = new Assignment(this.currentAssignmentId,
+                        projectId + "Awsome Trip 1",
                         format.parse("2018-03-23"),
                         format.parse("2018-03-30"),
                         "Do something really important." + projectId,
@@ -63,6 +66,7 @@ public class DummyDataManager extends DataManager {
             Assignment assign = null;
             try {
                 assign = new Assignment(this.currentAssignmentId,
+                        projectId + "Awsome Trip 2",
                         format.parse("2018-04-23"),
                         format.parse("2018-04-30"),
                         "Do something really important." + projectId,
@@ -79,6 +83,7 @@ public class DummyDataManager extends DataManager {
             Assignment assign = null;
             try {
                 assign = new Assignment(this.currentAssignmentId,
+                        projectId + "Awsome Trip 3",
                         format.parse("2018-05-23"),
                         format.parse("2018-05-30"),
                         "Do something really not that important."+ projectId,

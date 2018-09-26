@@ -37,6 +37,8 @@ import static android.arch.persistence.room.ForeignKey.CASCADE;
 public class Assignment implements CardInformationProvider {
     @PrimaryKey(autoGenerate=true)
     private int assignmentId;
+    @ColumnInfo(name="shortName")
+    private String shortName;
     @ColumnInfo(name="from")
     private Date fromDate;
     @ColumnInfo(name="to")
@@ -60,9 +62,10 @@ public class Assignment implements CardInformationProvider {
     }
 
     @Ignore
-    public Assignment(int assignmentId, Date fromDate, Date toDate, String taskDescription,
+    public Assignment(int assignmentId, String shortName, Date fromDate, Date toDate, String taskDescription,
                       String doneTasks, String workingPackage, int parentProject) {
         this.assignmentId = assignmentId;
+        this.shortName = shortName;
         this.fromDate = fromDate;
         this.toDate = toDate;
         this.taskDescription = taskDescription;
@@ -143,6 +146,13 @@ public class Assignment implements CardInformationProvider {
         this.parentProject = parentProject;
     }
 
+    public String getShortName() {
+        return shortName;
+    }
+
+    public void setShortName(String shortName) {
+        this.shortName = shortName;
+    }
     @Override
     public Tuple<TextLayout, String> getHeadLine() {
         return new Tuple<>(TextLayout.LARGE, this.taskDescription);
@@ -166,5 +176,10 @@ public class Assignment implements CardInformationProvider {
     @Override
     public Tuple<TextLayout, String> getFootNote() {
         return new Tuple<>(TextLayout.MEDIUM, this.workingPackage);
+    }
+
+    @Override
+    public String toString() {
+        return this.shortName;
     }
 }

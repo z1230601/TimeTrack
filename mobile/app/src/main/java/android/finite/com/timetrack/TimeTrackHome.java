@@ -7,6 +7,7 @@ import android.finite.com.data.User;
 import android.finite.com.timetrack.data.DataManager;
 import android.finite.com.timetrack.data.DummyDataManager;
 import android.finite.com.timetrack.view.DrawerListener;
+import android.finite.com.timetrack.view.spinner.AssigmentSpinnerAdapter;
 import android.finite.com.timetrack.view.spinner.ProjectSpinnerAdapter;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -17,12 +18,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Spinner;
 
 public class TimeTrackHome extends AppCompatActivity {
     private User currentuser = null;
-    private Project currentProject = null;
-    private Assignment currentAssignment = null;
+    private Spinner currentProjectSpinner;
+    private Spinner currentAssignmentSpinner;
+    private AssigmentSpinnerAdapter assignmentAdapter;
+    private ProjectSpinnerAdapter projectAdapater;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,10 +50,39 @@ public class TimeTrackHome extends AppCompatActivity {
         navigationView.setNavigationItemSelectedListener(new DrawerListener(this));
 
 
-        Spinner currentProjectSpinner = (Spinner) findViewById(R.id.currentProject);
-        currentProjectSpinner.setAdapter(new ProjectSpinnerAdapter(this));
+        this.currentProjectSpinner = (Spinner) findViewById(R.id.currentProject);
+        this.projectAdapater = new ProjectSpinnerAdapter(this);
+        this.currentProjectSpinner.setAdapter(this.projectAdapater);
+        this.currentProjectSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Project selectedProject = (Project) currentProjectSpinner.getItemAtPosition(position);
+                DataManager.get().setCurrentProject(selectedProject);
+                initAssignemnts();
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {}
+        });
 
-        Spinner currentAssignmentSpinner = (Spinner) findViewById(R.id.currentAssignment);
+        this.currentAssignmentSpinner = (Spinner) findViewById(R.id.currentAssignment);
+        this.assignmentAdapter = new AssigmentSpinnerAdapter(this);
+        this.currentAssignmentSpinner.setAdapter(this.assignmentAdapter);
+        this.currentAssignmentSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                DataManager.get().setCurrentAssignment((Assignment) currentAssignmentSpinner.getSelectedItem());
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {}
+        });
+        this.currentProjectSpinner.setSelection(this.projectAdapater.getPosition(DataManager.get().getSelectedProject()));
+        this.currentAssignmentSpinner.setSelection(this.assignmentAdapter
+                .getPosition(DataManager.get().getSelectedAssignment()));
+
+    }
+
+    private void initAssignemnts() {
+        this.assignmentAdapter.init();
     }
 
     @Override
@@ -85,6 +119,4 @@ public class TimeTrackHome extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
-
-
 }

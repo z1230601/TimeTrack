@@ -1,6 +1,5 @@
 package android.finite.com.timetrack;
 
-import android.finite.com.data.Assignment;
 import android.finite.com.data.Project;
 import android.finite.com.timetrack.data.DataManager;
 import android.finite.com.timetrack.view.AssignmentsListAdapter;
@@ -8,7 +7,6 @@ import android.finite.com.timetrack.view.DrawerListener;
 import android.finite.com.timetrack.view.cards.AssignmentCard;
 import android.finite.com.timetrack.view.cards.BaseCardView;
 import android.finite.com.timetrack.view.cards.CardSelector;
-import android.finite.com.timetrack.view.cards.ProjectCard;
 import android.finite.com.timetrack.view.spinner.ProjectSpinnerAdapter;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -26,8 +24,6 @@ import android.view.MenuItem;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.Spinner;
-
-import java.util.List;
 
 public class AssignmentsView extends AppCompatActivity implements CardSelector{
 
@@ -66,7 +62,7 @@ public class AssignmentsView extends AppCompatActivity implements CardSelector{
             @Override
             public void onClick(View v) {
                 DataManager.get().setCurrentProject((Project) currentProjectSpinner.getSelectedItem());
-                DataManager.get().setCurrentAssigment(selectedCard.getAssociatedAssignment());
+                DataManager.get().setCurrentAssignment(selectedCard.getAssociatedAssignment());
             }
         });
 

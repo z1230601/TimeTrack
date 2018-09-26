@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,11 +7,8 @@
     android:background="@color/holo_light_green_background"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".TimeTrackHome"
-    tools:showIn="@layout/app_bar_time_track_home">
-
-    <TableRow
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    tools:showIn="@layout/app_bar_time_track_home"
+    android:orientation="vertical">
 
         <Spinner
             android:id="@+id/currentProject"
@@ -22,11 +19,7 @@
             android:padding="5dp"
             tools:layout_editor_absoluteX="0dp"
             tools:layout_editor_absoluteY="56dp" />
-    </TableRow>
 
-    <TableRow
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
 
         <Spinner
             android:id="@+id/currentAssignment"
@@ -38,20 +31,25 @@
             android:padding="5dp"
             tools:layout_editor_absoluteX="0dp"
             tools:layout_editor_absoluteY="167dp" />
-    </TableRow>
 
-    <TableRow
+
+    <Space
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:layout_weight="2" />
 
-        <Button
-            android:id="@+id/startStopBtn"
-            android:layout_width="371dp"
-            android:layout_height="101dp"
-            android:layout_weight="1"
-            android:text="@string/start_track_time_button"
-            tools:layout_editor_absoluteX="0dp"
-            tools:layout_editor_absoluteY="278dp" />
-    </TableRow>
+    <Button
+        android:id="@+id/startStopBtn"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/integrated_spinner_height"
+        android:layout_weight="1"
+        android:text="@string/start_track_time_button"
+        android:theme="@android:style/Theme.Holo"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="278dp" />
 
-</TableLayout>
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="8" />
+</LinearLayout>
