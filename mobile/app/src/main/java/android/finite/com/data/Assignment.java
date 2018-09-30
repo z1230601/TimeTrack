@@ -6,12 +6,9 @@ import android.arch.persistence.room.ForeignKey;
 import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
-import android.arch.persistence.room.TypeConverters;
-import android.finite.com.timetrack.view.cards.CardInformationProvider;
+import android.finite.com.timetrack.view.cards.LinesCardDataProvider;
 import android.finite.com.utility.TextLayout;
 import android.finite.com.utility.Tuple;
-
-import org.w3c.dom.Text;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -34,7 +31,7 @@ import static android.arch.persistence.room.ForeignKey.CASCADE;
         indices = {@Index("assignmentId"),
                 //@Index("hotelId"),
                 @Index("projectId")})
-public class Assignment implements CardInformationProvider {
+public class Assignment extends LinesCardDataProvider {
     @PrimaryKey(autoGenerate=true)
     private int assignmentId;
     @ColumnInfo(name="shortName")

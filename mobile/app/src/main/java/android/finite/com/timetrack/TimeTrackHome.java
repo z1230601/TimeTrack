@@ -33,7 +33,9 @@ public class TimeTrackHome extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        DataManager.insertInstance(new DummyDataManager());
+        if(! (DataManager.get() instanceof DummyDataManager)) {
+            DataManager.insertInstance(new DummyDataManager());
+        }
 
         setContentView(R.layout.activity_time_track_home);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -48,7 +50,6 @@ public class TimeTrackHome extends AppCompatActivity {
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(new DrawerListener(this));
-
 
         this.currentProjectSpinner = (Spinner) findViewById(R.id.currentProject);
         this.projectAdapater = new ProjectSpinnerAdapter(this);
@@ -75,9 +76,17 @@ public class TimeTrackHome extends AppCompatActivity {
             @Override
             public void onNothingSelected(AdapterView<?> parent) {}
         });
-        this.currentProjectSpinner.setSelection(this.projectAdapater.getPosition(DataManager.get().getSelectedProject()));
+
+        Project selectProject = DataManager.get().getSelectedProject();
+        Assignment selectedAssignment = DataManager.get().getSelectedAssignment();
+
+        System.out.println("Project " + selectProject + ": contains " +
+                this.projectAdapater.getPosition(selectProject));
+
+        this.currentProjectSpinner.setSelection(this.projectAdapater
+                .getPosition(selectProject));
         this.currentAssignmentSpinner.setSelection(this.assignmentAdapter
-                .getPosition(DataManager.get().getSelectedAssignment()));
+                .getPosition(selectedAssignment));
 
     }
 

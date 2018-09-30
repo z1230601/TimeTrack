@@ -1,22 +1,15 @@
 package android.finite.com.data;
 
 import android.arch.persistence.room.ColumnInfo;
-import android.arch.persistence.room.Database;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.ForeignKey;
 import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
-import android.arch.persistence.room.Room;
-import android.content.Context;
-import android.finite.com.db.DataAccess;
 import android.finite.com.timetrack.data.DataManager;
-import android.finite.com.timetrack.view.cards.CardInformationProvider;
+import android.finite.com.timetrack.view.cards.LinesCardDataProvider;
 import android.finite.com.utility.TextLayout;
 import android.finite.com.utility.Tuple;
-import android.provider.ContactsContract;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -33,7 +26,7 @@ import static android.arch.persistence.room.ForeignKey.CASCADE;
         childColumns = "customerId",
         onDelete = CASCADE)},
     indices = {@Index("projectId"),  @Index("countryId"), @Index("customerId")})
-public class Project implements CardInformationProvider {
+public class Project extends LinesCardDataProvider {
     @Ignore
     public static final String PROJECT_KEY = "PROJECT";
 
@@ -157,5 +150,14 @@ public class Project implements CardInformationProvider {
             init();
         }
         return new Tuple<TextLayout, String>(TextLayout.MEDIUM, this.associatedCountry.getName());
+    }
+
+    @Override
+    public boolean equals(Object ob) {
+        if(ob instanceof Project){
+            return this.projectId == ((Project) ob).getProjectId();
+        }
+
+        return false;
     }
 }

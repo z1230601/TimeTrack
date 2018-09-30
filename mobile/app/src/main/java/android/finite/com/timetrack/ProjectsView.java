@@ -3,10 +3,9 @@ package android.finite.com.timetrack;
 import android.content.Intent;
 import android.finite.com.data.Project;
 import android.finite.com.timetrack.data.DataManager;
-import android.finite.com.timetrack.view.cards.BaseCardView;
+import android.finite.com.timetrack.view.cards.GenericCardView;
 import android.finite.com.timetrack.view.cards.CardSelector;
 import android.finite.com.timetrack.view.DrawerListener;
-import android.finite.com.timetrack.view.cards.ProjectCard;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.view.View;
@@ -27,8 +26,8 @@ public class ProjectsView extends AppCompatActivity implements CardSelector {
 
     private LinearLayout leftCards;
     private LinearLayout rightCards;
-    private ProjectCard selectedCard = null;
-    private List<ProjectCard> projectCards = new ArrayList<>();
+    private GenericCardView selectedCard = null;
+    private List<GenericCardView> projectCards = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,7 +70,7 @@ public class ProjectsView extends AppCompatActivity implements CardSelector {
                 public void onClick(View view) {
                     Intent intent = new Intent();
                     intent.setClass(view.getContext(), ProjectDataView.class);
-                    intent.putExtra(Project.PROJECT_KEY, selectedCard.getAssociatedProject().getProjectId());
+                    intent.putExtra(Project.PROJECT_KEY, ((Project) selectedCard.getAssociatedDataProvder()).getProjectId());
                     startActivity(intent);
 
                 }
@@ -85,8 +84,7 @@ public class ProjectsView extends AppCompatActivity implements CardSelector {
         this.rightCards.removeAllViews();
         for(int i=0; i < DataManager.get().getProjects().size(); i++) {
             LinearLayout layout = (i % 2 == 0? leftCards : rightCards);
-            ProjectCard card = new ProjectCard(layout.getContext(),
-                    DataManager.get().getProjects().get(i), this);
+            GenericCardView card = new GenericCardView(layout.getContext(), (CardSelector) this, DataManager.get().getProjects().get(i));
             card.create();
             layout.addView(card);
             this.projectCards.add(card);
@@ -125,20 +123,15 @@ public class ProjectsView extends AppCompatActivity implements CardSelector {
         return super.onOptionsItemSelected(item);
     }
 
-    public void setSelectedCard(BaseCardView card) {
-        if( !(card instanceof ProjectCard)) {
-            return;
-        }
-        ProjectCard selectedCard = (ProjectCard) card;
-
+    public void setSelectedCard(GenericCardView card) {
         if(this.selectedCard != null) {
             this.selectedCard.resetSelection();
         }
 
-        if(this.selectedCard == selectedCard){
+        if(this.selectedCard == card){
             this.selectedCard = null;
         } else {
-            this.selectedCard = selectedCard;
+            this.selectedCard = card;
         }
         if ( this.selectedCard == null ) {
             findViewById(R.id.editFab).setVisibility(View.GONE);

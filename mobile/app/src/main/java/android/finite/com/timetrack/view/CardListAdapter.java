@@ -2,21 +2,22 @@ package android.finite.com.timetrack.view;
 
 import android.finite.com.data.Assignment;
 import android.finite.com.timetrack.data.DataManager;
-import android.finite.com.timetrack.view.cards.AssignmentCard;
 import android.finite.com.timetrack.view.cards.CardSelector;
+import android.finite.com.timetrack.view.cards.GenericCardView;
+import android.finite.com.timetrack.view.cards.LinesCardLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
 
 import java.util.List;
 
-public class AssignmentsListAdapter extends  RecyclerView.Adapter<AssignmentsListAdapter.DataViewHolder> {
+public class CardListAdapter extends  RecyclerView.Adapter<CardListAdapter.DataViewHolder> {
 
     private List<Assignment> data;
     private final CardSelector parent;
 
     public static class DataViewHolder extends RecyclerView.ViewHolder {
-        public AssignmentCard cardView;
-        public DataViewHolder(AssignmentCard card) {
+        public GenericCardView cardView;
+        public DataViewHolder(GenericCardView card) {
             super(card);
             cardView = card;
 
@@ -24,11 +25,11 @@ public class AssignmentsListAdapter extends  RecyclerView.Adapter<AssignmentsLis
 
         public void fillData(Assignment assignment, CardSelector parent) {
             this.cardView.setParent(parent);
-            this.cardView.setAssigment(assignment);
+            this.cardView.setProvider(assignment);
         }
     }
 
-    public AssignmentsListAdapter(CardSelector cardSelector) {
+    public CardListAdapter(CardSelector cardSelector) {
         this.parent = cardSelector;
 
     }
@@ -43,8 +44,8 @@ public class AssignmentsListAdapter extends  RecyclerView.Adapter<AssignmentsLis
     @Override
     public DataViewHolder onCreateViewHolder(ViewGroup parent,
                                                                  int viewType) {
-        AssignmentCard card = new AssignmentCard(parent.getContext());
-        return new AssignmentsListAdapter.DataViewHolder(card);
+        GenericCardView card = new GenericCardView(parent.getContext(), new LinesCardLayout(parent.getContext()));
+        return new CardListAdapter.DataViewHolder(card);
     }
 
     // Replace the contents of a view (invoked by the layout manager)
