@@ -42,8 +42,7 @@ public class CardListAdapter extends  RecyclerView.Adapter<CardListAdapter.DataV
 
     // Create new views (invoked by the layout manager)
     @Override
-    public DataViewHolder onCreateViewHolder(ViewGroup parent,
-                                                                 int viewType) {
+    public DataViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         GenericCardView card = new GenericCardView(parent.getContext(), new LinesCardLayout(parent.getContext()));
         return new CardListAdapter.DataViewHolder(card);
     }

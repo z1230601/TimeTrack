@@ -10,10 +10,28 @@
     tools:showIn="@layout/app_bar_assignments"
     android:orientation="vertical">
 
-    <Spinner
-        android:id="@+id/assignmentProjectSelector"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/integrated_spinner_height" />
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Spinner
+            android:id="@+id/assignmentProjectSelector"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/integrated_spinner_height"
+            android:layout_weight="1" />
+
+        <Button
+            android:id="@+id/assignmentMakeCurrent"
+            style="@android:style/TextAppearance.Material.Widget.DropDownItem"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|center_horizontal"
+            android:layout_weight="1"
+            android:background="@android:color/holo_green_dark"
+            android:text="@string/AssignmentView_makeCurrentButtonTitle"
+            android:textAppearance="@style/TextAppearance.AppCompat" />
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/assigmentsList"
@@ -21,16 +39,6 @@
         android:layout_height="match_parent"
         android:layout_marginTop="5dp"
         android:orientation="vertical">
-
-        <Button
-            android:id="@+id/assignmentMakeCurrent"
-            style="@android:style/Widget.Holo.Light.Button"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/integrated_spinner_height"
-            android:layout_gravity="center_vertical|center_horizontal"
-            android:layout_weight="1"
-            android:text="@string/AssignmentView_makeCurrentButtonTitle"
-            android:textAppearance="@style/TextAppearance.AppCompat" />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/assigmentList"

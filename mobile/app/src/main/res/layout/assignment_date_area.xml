@@ -2,27 +2,32 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_margin="5dp"
+    android:orientation="vertical"
+    android:padding="5dp">
 
-    <EditText
+    <TextView
         android:id="@+id/fromDate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="date"
-        android:text="FROM DATE" />
+        android:minWidth="@dimen/integrated_spinner_height"
+        android:text="FROM"
+        android:textColor="@color/common_google_signin_btn_text_dark_focused" />
 
     <TextView
-        android:id="@+id/filler"
+        android:id="@+id/yearText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="until" />
+        android:gravity="right|center_vertical"
+        android:text="-"
+        android:textSize="10sp" />
 
-    <EditText
+    <TextView
         android:id="@+id/toDate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="date"
-        android:text="TO DATE" />
+        android:minWidth="@dimen/integrated_spinner_height"
+        android:text="TO"
+        android:textColor="@color/common_google_signin_btn_text_dark_focused" />
+
 </LinearLayout>

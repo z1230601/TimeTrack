@@ -41,16 +41,17 @@ public class DummyDataManager extends DataManager {
     }
 
     private void initAssigments(int projectId) {
-        DateFormat format = new SimpleDateFormat("YYYY-MM-dd");
+        DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         List<Assignment> projectAssigments = new ArrayList<>();
         {
             Assignment assign = null;
             try {
                 assign = new Assignment(this.currentAssignmentId,
-                        projectId + "Awsome Trip 1",
+                        projectId + "Mobile Android App Development",
+                        "This task entails the implementation of the Android Application. ",
                         format.parse("2018-03-23"),
                         format.parse("2018-03-30"),
-                        "Do something really important." + projectId,
+                        "Implement an app for." + projectId,
                         "",
                         "65464846186", projectId);
             } catch (ParseException e) {
@@ -66,7 +67,8 @@ public class DummyDataManager extends DataManager {
             Assignment assign = null;
             try {
                 assign = new Assignment(this.currentAssignmentId,
-                        projectId + "Awsome Trip 2",
+                        projectId + "Implement WebGui",
+                        "This assignments deals with implementing the web gui of the solution.",
                         format.parse("2018-04-23"),
                         format.parse("2018-04-30"),
                         "Do something really important." + projectId,
@@ -83,7 +85,8 @@ public class DummyDataManager extends DataManager {
             Assignment assign = null;
             try {
                 assign = new Assignment(this.currentAssignmentId,
-                        projectId + "Awsome Trip 3",
+                        projectId + "Server Process",
+                        "This assignment deals with the implementation of the underlaying server process.",
                         format.parse("2018-05-23"),
                         format.parse("2018-05-30"),
                         "Do something really not that important."+ projectId,

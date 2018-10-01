@@ -40,9 +40,11 @@
 
     <Button
         android:id="@+id/startStopBtn"
+        style="@android:style/TextAppearance.Material.Widget.DropDownItem"
         android:layout_width="match_parent"
         android:layout_height="@dimen/integrated_spinner_height"
         android:layout_weight="1"
+        android:background="@android:color/holo_green_dark"
         android:text="@string/start_track_time_button"
         android:theme="@android:style/Theme.Holo"
         tools:layout_editor_absoluteX="0dp"
@@ -52,4 +54,5 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="8" />
+
 </LinearLayout>

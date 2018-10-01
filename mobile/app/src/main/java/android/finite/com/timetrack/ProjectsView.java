@@ -8,6 +8,7 @@ import android.finite.com.timetrack.view.cards.CardSelector;
 import android.finite.com.timetrack.view.DrawerListener;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.widget.CardView;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -123,7 +124,8 @@ public class ProjectsView extends AppCompatActivity implements CardSelector {
         return super.onOptionsItemSelected(item);
     }
 
-    public void setSelectedCard(GenericCardView card) {
+    @Override
+    public void setSelectedCard(CardView card, Object association) {
         if(this.selectedCard != null) {
             this.selectedCard.resetSelection();
         }
@@ -131,7 +133,7 @@ public class ProjectsView extends AppCompatActivity implements CardSelector {
         if(this.selectedCard == card){
             this.selectedCard = null;
         } else {
-            this.selectedCard = card;
+            this.selectedCard = (GenericCardView) card;
         }
         if ( this.selectedCard == null ) {
             findViewById(R.id.editFab).setVisibility(View.GONE);

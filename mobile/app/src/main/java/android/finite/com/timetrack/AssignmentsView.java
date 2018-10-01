@@ -5,11 +5,14 @@ import android.finite.com.data.Project;
 import android.finite.com.timetrack.data.DataManager;
 import android.finite.com.timetrack.view.CardListAdapter;
 import android.finite.com.timetrack.view.DrawerListener;
+import android.finite.com.timetrack.view.InflatedCardListAdapter;
 import android.finite.com.timetrack.view.cards.GenericCardView;
 import android.finite.com.timetrack.view.cards.CardSelector;
 import android.finite.com.timetrack.view.spinner.ProjectSpinnerAdapter;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -29,10 +32,11 @@ public class AssignmentsView extends AppCompatActivity implements CardSelector{
 
     private LinearLayoutManager layoutManager;
     private RecyclerView assigmentList;
-    private CardListAdapter adapater;
+    private InflatedCardListAdapter adapater;
     private Spinner currentProjectSpinner;
-    private GenericCardView selectedCard;
+    private CardView selectedCard;
     private Button makeCurrentButton;
+    private Assignment selectedAssigment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +47,7 @@ public class AssignmentsView extends AppCompatActivity implements CardSelector{
 
         this.layoutManager = new LinearLayoutManager(this);
         this.assigmentList = (RecyclerView) findViewById(R.id.assigmentList);
-        this.adapater = new CardListAdapter((CardSelector) this);
+        this.adapater = new InflatedCardListAdapter((CardSelector) this);
         this.assigmentList.setAdapter(this.adapater);
         this.assigmentList.setLayoutManager(this.layoutManager);
 
@@ -62,7 +66,8 @@ public class AssignmentsView extends AppCompatActivity implements CardSelector{
             @Override
             public void onClick(View v) {
                 DataManager.get().setCurrentProject((Project) currentProjectSpinner.getSelectedItem());
-                DataManager.get().setCurrentAssignment(((Assignment) selectedCard.getAssociatedDataProvder()));
+
+                DataManager.get().setCurrentAssignment(selectedAssigment);
             }
         });
 
@@ -124,15 +129,16 @@ public class AssignmentsView extends AppCompatActivity implements CardSelector{
     }
 
     @Override
-    public void setSelectedCard(GenericCardView card) {
+    public void setSelectedCard(CardView card, Object association) {
         if(this.selectedCard != null) {
-            this.selectedCard.resetSelection();
+            this.selectedCard.setCardBackgroundColor(Color.WHITE);
         }
 
         if(this.selectedCard == card){
             this.selectedCard = null;
         } else {
             this.selectedCard = card;
+            this.selectedAssigment = (Assignment) association;
         }
 
         if ( this.selectedCard == null ) {

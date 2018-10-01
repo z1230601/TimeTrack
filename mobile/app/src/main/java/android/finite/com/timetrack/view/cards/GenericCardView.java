@@ -81,7 +81,7 @@ public class GenericCardView extends CardView implements View.OnClickListener {
     public void onClick(View v) {
         resetSelection();
         if(this.parent != null) {
-            this.parent.setSelectedCard(this);
+            this.parent.setSelectedCard(this, this.layoutManger.getDataProvider());
         }
     }
 

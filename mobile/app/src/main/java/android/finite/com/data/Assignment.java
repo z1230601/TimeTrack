@@ -36,6 +36,8 @@ public class Assignment extends LinesCardDataProvider {
     private int assignmentId;
     @ColumnInfo(name="shortName")
     private String shortName;
+    @ColumnInfo(name="shortDescription")
+    private String shortDescription;
     @ColumnInfo(name="from")
     private Date fromDate;
     @ColumnInfo(name="to")
@@ -59,10 +61,11 @@ public class Assignment extends LinesCardDataProvider {
     }
 
     @Ignore
-    public Assignment(int assignmentId, String shortName, Date fromDate, Date toDate, String taskDescription,
+    public Assignment(int assignmentId, String shortName, String shortDescription, Date fromDate, Date toDate, String taskDescription,
                       String doneTasks, String workingPackage, int parentProject) {
         this.assignmentId = assignmentId;
         this.shortName = shortName;
+        this.shortDescription = shortDescription;
         this.fromDate = fromDate;
         this.toDate = toDate;
         this.taskDescription = taskDescription;
@@ -178,5 +181,13 @@ public class Assignment extends LinesCardDataProvider {
     @Override
     public String toString() {
         return this.shortName;
+    }
+
+    public String getShortDescription() {
+        return shortDescription;
+    }
+
+    public void setShortDescription(String shortDescription) {
+        this.shortDescription = shortDescription;
     }
 }
