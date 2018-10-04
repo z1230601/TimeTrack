@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:background="@color/holo_light_green_background"
+        android:background="@color/app_light_background"
         android:orientation="vertical">
 
         <!--<android.support.v7.widget.CardView-->
@@ -65,7 +65,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:background="@color/holo_light_green_background"
+        android:background="@color/app_light_background"
         android:orientation="vertical">
 
         <!--<android.support.v7.widget.CardView-->

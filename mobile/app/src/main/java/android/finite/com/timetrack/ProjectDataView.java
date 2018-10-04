@@ -64,7 +64,7 @@ public class ProjectDataView extends AppCompatActivity implements View.OnClickLi
             initFromProject(getIntent().getExtras().getInt(Project.PROJECT_KEY), toolbar);
         } else {
             toolbar.setTitle( getResources().getString(R.string.PojectDataView_newProjectTitle));
-            this.listAdapter = new PropertyListAdapter();
+            this.listAdapter = new PropertyListAdapter(this);
         }
 
         this.propertyList.setAdapter(this.listAdapter);
@@ -86,7 +86,7 @@ public class ProjectDataView extends AppCompatActivity implements View.OnClickLi
         toolbar.setTitle(getResources().getString(R.string.ProjectDataView_prefixEditModeTitle) +
                 " " + this.exisitingProject.getCodeName());
 
-        this.listAdapter = new PropertyListAdapter();
+        this.listAdapter = new PropertyListAdapter(this);
         for(Map.Entry<String, String> entry :  this.exisitingProject.getProperties().entrySet()) {
             this.listAdapter.addItem(entry.getKey(), entry.getValue());
         }
@@ -102,7 +102,31 @@ public class ProjectDataView extends AppCompatActivity implements View.OnClickLi
                 }
             });
         }
-
+        {
+            FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.addPropertyFab);
+            fab.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    PropertyInsertDialog dialog = new PropertyInsertDialog();
+                    dialog.show(getFragmentManager(), "PropertyInsertDialog");
+                }
+            });
+        }
+        {
+            FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.deletePropertyFab);
+            fab.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(listAdapter.getLastSelected() != null) {
+                        if(exisitingProject != null){
+                            Tuple<String, String> data = new Tuple<>(listAdapter.getLastSelected().mTextView.getText());
+                            exisitingProject.removeProperty(listAdapter.getLastSelected());
+                            notifyAll();
+                        }
+                    }
+                }
+            });
+        }
     }
 
     private void preslectIdInSpinner(Spinner countrySpinner, int itemindex) {
@@ -129,7 +153,7 @@ public class ProjectDataView extends AppCompatActivity implements View.OnClickLi
     public void setProperty(Tuple<String, String> data) {
         if(this.exisitingProject != null) {
             this.exisitingProject.setAdditionalProperty(data.first, data.second);
-            //TODO recreated list and/or add item
+            notifyAll();
         } else {
             //TODO figure out a good way to save data if no existing project present
         }

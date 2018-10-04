@@ -15,7 +15,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="@android:color/holo_green_dark"
+            android:background="@color/app_dark_background"
             app:popupTheme="@style/AppTheme.PopupOverlay" />
 
     </android.support.design.widget.AppBarLayout>
@@ -29,8 +29,9 @@
         android:id="@+id/saveBtn"
         android:layout_width="match_parent"
         android:layout_height="@dimen/spinner_height"
-        android:background="@android:color/holo_green_dark"
+        android:background="@color/app_dark_button_background"
         android:text="Save"
+        android:textColor="@color/app_text_color"
         app:layout_anchor="@+id/include2"
         app:layout_anchorGravity="bottom|center" />
 
@@ -39,7 +40,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:clickable="true"
-        app:backgroundTint="@android:color/holo_green_dark"
+        app:backgroundTint="@color/app_dark_button_background"
         app:layout_anchor="@+id/include2"
         app:layout_anchorGravity="right|center"
         app:srcCompat="@drawable/ic_add" />
@@ -49,7 +50,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:clickable="true"
-        app:backgroundTint="@android:color/holo_green_dark"
+        app:backgroundTint="@color/app_dark_button_background"
         app:layout_anchor="@+id/include2"
         app:layout_anchorGravity="left|center"
         app:srcCompat="@drawable/ic_delete" />

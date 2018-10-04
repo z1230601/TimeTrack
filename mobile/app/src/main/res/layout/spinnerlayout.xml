@@ -15,6 +15,7 @@
         android:background="@drawable/rounded_corner_rectangle_background"
         android:gravity="center_vertical|center"
         android:text="TextView"
+        android:textColor="@color/app_text_color"
         android:textSize="24sp"
         android:textStyle="bold" />
 </LinearLayout>

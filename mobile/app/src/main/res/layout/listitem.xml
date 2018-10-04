@@ -5,5 +5,5 @@
     android:layout_weight="1"
     android:background="@drawable/rounded_corner_rectangle_background"
     android:gravity="center_vertical|center_horizontal"
-    android:text="TextView" >
-</TextView>
+    android:text="TextView"
+    android:textColor="@color/app_text_color"></TextView>

@@ -15,7 +15,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="@android:color/holo_green_dark"
+            android:background="@color/app_dark_background"
             app:popupTheme="@style/AppTheme.PopupOverlay" />
 
     </android.support.design.widget.AppBarLayout>
@@ -30,7 +30,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
-        app:backgroundTint="@android:color/holo_green_dark"
+        app:backgroundTint="@color/app_dark_button_background"
         app:layout_anchor="@+id/include"
         app:layout_anchorGravity="right|bottom"
         app:srcCompat="@drawable/ic_add" />
@@ -41,7 +41,7 @@
         android:layout_height="wrap_content"
         android:clickable="true"
         android:visibility="gone"
-        app:backgroundTint="@android:color/holo_green_dark"
+        app:backgroundTint="@color/app_dark_button_background"
         app:layout_anchor="@+id/include"
         app:layout_anchorGravity="bottom|center"
         app:srcCompat="@android:drawable/ic_menu_edit" />

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/holo_light_green_background"
+    android:background="@color/app_light_background"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".AssignmentsView"
     tools:showIn="@layout/app_bar_assignments"
@@ -28,9 +28,10 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical|center_horizontal"
             android:layout_weight="1"
-            android:background="@android:color/holo_green_dark"
+            android:background="@color/app_dark_button_background"
             android:text="@string/AssignmentView_makeCurrentButtonTitle"
-            android:textAppearance="@style/TextAppearance.AppCompat" />
+            android:textAppearance="@style/TextAppearance.AppCompat"
+            android:textColor="@color/app_text_color" />
     </LinearLayout>
 
     <LinearLayout
