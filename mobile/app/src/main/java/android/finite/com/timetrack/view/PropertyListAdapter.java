@@ -9,17 +9,28 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 public class PropertyListAdapter extends RecyclerView.Adapter<PropertyListAdapter.DataViewHolder> {
+    private List<String> keyOrder;
     private Activity parent;
-    private List<Stringifyer> data = new ArrayList<>();
+    private Map<String, String> data;
     private DataViewHolder lastSelected;
+
+    public void setData(Map<String, String> properties) {
+        this.data = properties;
+        this.keyOrder = new ArrayList<>(this.data.keySet());
+        notifyDataSetChanged();
+    }
 
 
     public static class DataViewHolder extends RecyclerView.ViewHolder {
         private PropertyListAdapter parentRecyclerView;
         public TextView mTextView;
+        private String propertyKey;
+
         public DataViewHolder(TextView v, PropertyListAdapter parent) {
             super(v);
             this.parentRecyclerView = parent;
@@ -31,14 +42,26 @@ public class PropertyListAdapter extends RecyclerView.Adapter<PropertyListAdapte
                 }
             });
         }
+
+        public void setPropertyKey(String propertyKey) {
+            this.propertyKey = propertyKey;
+        }
+
+        public String getPropertyKey() {
+            return this.propertyKey;
+        }
     }
 
-    public PropertyListAdapter(Activity parent) {
+    public PropertyListAdapter(Activity parent, Map<String,String> properties) {
         this.parent = parent;
+        this.data = properties;
+        this.keyOrder = new ArrayList<>(this.data.keySet());
     }
-    // Provide a suitable constructor (depends on the kind of dataset)
-    public PropertyListAdapter(List<Stringifyer> data) {
-        this.data = data;
+
+    public PropertyListAdapter(Activity parent, Map<String,String> properties, List<String> keyOrder) {
+        this.parent = parent;
+        this.data = properties;
+        this.keyOrder = keyOrder;
     }
 
     // Create new views (invoked by the layout manager)
@@ -57,22 +80,14 @@ public class PropertyListAdapter extends RecyclerView.Adapter<PropertyListAdapte
     public void onBindViewHolder(DataViewHolder holder, int position) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
-        holder.mTextView.setText(this.data.get(position).getReadableString());
+        holder.mTextView.setText(this.keyOrder.get(position) + ":" + this.data.get(this.keyOrder.get(position)));
+        holder.setPropertyKey(this.keyOrder.get(position));
 
     }
 
     @Override
     public int getItemCount() {
         return this.data.size();
-    }
-
-    public void addItem(final String key, final String value) {
-        this.data.add(new Stringifyer() {
-            @Override
-            public String getReadableString() {
-                return key + ": " + value;
-            }
-        });
     }
 
     public void select(DataViewHolder selected) {

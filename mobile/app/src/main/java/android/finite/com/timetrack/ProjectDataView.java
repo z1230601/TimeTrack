@@ -1,7 +1,5 @@
 package android.finite.com.timetrack;
 
-import android.app.DialogFragment;
-import android.content.Intent;
 import android.finite.com.data.Country;
 import android.finite.com.data.Customer;
 import android.finite.com.data.Project;
@@ -22,6 +20,8 @@ import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class ProjectDataView extends AppCompatActivity implements View.OnClickListener, PropertyInsertDialog.PropertyDialogListener {
@@ -35,6 +35,7 @@ public class ProjectDataView extends AppCompatActivity implements View.OnClickLi
     private TextView codeName;
     private Spinner countrySpinner;
     private Spinner customerSpinner;
+    private Map<String, String> temporaryProperties;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,9 +65,49 @@ public class ProjectDataView extends AppCompatActivity implements View.OnClickLi
             initFromProject(getIntent().getExtras().getInt(Project.PROJECT_KEY), toolbar);
         } else {
             toolbar.setTitle( getResources().getString(R.string.PojectDataView_newProjectTitle));
-            this.listAdapter = new PropertyListAdapter(this);
+            this.temporaryProperties = new LinkedHashMap<String, String>();
+            this.listAdapter = new PropertyListAdapter(this, this.temporaryProperties, new ArrayList<String>(this.temporaryProperties.keySet()));
         }
-
+        {
+            FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.addPropertyFab);
+            fab.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    PropertyInsertDialog dialog = new PropertyInsertDialog();
+                    dialog.show(getFragmentManager(), "PropertyInsertDialog");
+                }
+            });
+        }
+        {
+            FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.addPropertyFab);
+            fab.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    System.out.println("Enter add onclick");
+                    PropertyInsertDialog dialog = new PropertyInsertDialog();
+                    dialog.show(getFragmentManager(), "PropertyInsertDialog");
+                }
+            });
+        }
+        {
+            FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.deletePropertyFab);
+            fab.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    System.out.println("Enter On delet click!");
+                    if(listAdapter.getLastSelected() != null) {
+                        System.out.println("something is selected!");
+                        if(exisitingProject != null){
+                            String propertyKey = listAdapter.getLastSelected().getPropertyKey();
+                            exisitingProject.removeProperty(propertyKey);
+                            System.out.println("removed key " + propertyKey + "!");
+                            listAdapter.setData(exisitingProject.getProperties());
+                        }
+                    }
+                    System.out.println("Exit On delet click!");
+                }
+            });
+        }
         this.propertyList.setAdapter(this.listAdapter);
 
         setSupportActionBar(toolbar);
@@ -86,47 +127,7 @@ public class ProjectDataView extends AppCompatActivity implements View.OnClickLi
         toolbar.setTitle(getResources().getString(R.string.ProjectDataView_prefixEditModeTitle) +
                 " " + this.exisitingProject.getCodeName());
 
-        this.listAdapter = new PropertyListAdapter(this);
-        for(Map.Entry<String, String> entry :  this.exisitingProject.getProperties().entrySet()) {
-            this.listAdapter.addItem(entry.getKey(), entry.getValue());
-        }
-
-        //TODO: add selection, add, delete of properties
-        {
-            FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.addPropertyFab);
-            fab.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    PropertyInsertDialog dialog = new PropertyInsertDialog();
-                    dialog.show(getFragmentManager(), "PropertyInsertDialog");
-                }
-            });
-        }
-        {
-            FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.addPropertyFab);
-            fab.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    PropertyInsertDialog dialog = new PropertyInsertDialog();
-                    dialog.show(getFragmentManager(), "PropertyInsertDialog");
-                }
-            });
-        }
-        {
-            FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.deletePropertyFab);
-            fab.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if(listAdapter.getLastSelected() != null) {
-                        if(exisitingProject != null){
-                            Tuple<String, String> data = new Tuple<>(listAdapter.getLastSelected().mTextView.getText());
-                            exisitingProject.removeProperty(listAdapter.getLastSelected());
-                            notifyAll();
-                        }
-                    }
-                }
-            });
-        }
+        this.listAdapter = new PropertyListAdapter(this, this.exisitingProject.getProperties());
     }
 
     private void preslectIdInSpinner(Spinner countrySpinner, int itemindex) {
@@ -139,6 +140,7 @@ public class ProjectDataView extends AppCompatActivity implements View.OnClickLi
             this.exisitingProject = new Project(this.codeName.getText().toString(),
             -1, ((Country) this.countrySpinner.getSelectedItem()).getCountryId(),
                     ((Customer) this.customerSpinner.getSelectedItem()).getCustomerId());
+            this.exisitingProject.setProperties(this.temporaryProperties);
             DataManager.get().saveNewProject(this.exisitingProject);
         } else {
             this.exisitingProject.setCodeName(this.codeName.getText().toString());
@@ -153,9 +155,10 @@ public class ProjectDataView extends AppCompatActivity implements View.OnClickLi
     public void setProperty(Tuple<String, String> data) {
         if(this.exisitingProject != null) {
             this.exisitingProject.setAdditionalProperty(data.first, data.second);
-            notifyAll();
+            this.listAdapter.setData(this.exisitingProject.getProperties());
         } else {
-            //TODO figure out a good way to save data if no existing project present
+            this.temporaryProperties.put(data.first, data.second);
+            this.listAdapter.setData(this.temporaryProperties);
         }
     }
 }

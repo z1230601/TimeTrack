@@ -7,6 +7,7 @@ import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
 import android.finite.com.timetrack.data.DataManager;
+import android.finite.com.timetrack.view.PropertyListAdapter;
 import android.finite.com.timetrack.view.cards.LinesCardDataProvider;
 import android.finite.com.utility.TextLayout;
 import android.finite.com.utility.Tuple;
@@ -159,5 +160,13 @@ public class Project extends LinesCardDataProvider {
         }
 
         return false;
+    }
+
+    public void removeProperty(String key) {
+        this.properties.remove(key);
+    }
+
+    public void setProperties(Map<String, String> temporaryProperties) {
+        this.properties = temporaryProperties;
     }
 }
