@@ -16,7 +16,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
-public class InflatedCardListAdapter extends  RecyclerView.Adapter<InflatedCardListAdapter.DataViewHolder> {
+public class AssigmentCardListAdapter extends  RecyclerView.Adapter<AssigmentCardListAdapter.DataViewHolder> {
 
     private List<Assignment> data;
     private final CardSelector parent;
@@ -62,7 +62,7 @@ public class InflatedCardListAdapter extends  RecyclerView.Adapter<InflatedCardL
         }
     }
 
-    public InflatedCardListAdapter(CardSelector cardSelector) {
+    public AssigmentCardListAdapter(CardSelector cardSelector) {
         this.parent = cardSelector;
 
     }
@@ -74,7 +74,7 @@ public class InflatedCardListAdapter extends  RecyclerView.Adapter<InflatedCardL
 
     @Override
     public DataViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new InflatedCardListAdapter.DataViewHolder((CardView) LayoutInflater.from(parent.getContext())
+        return new AssigmentCardListAdapter.DataViewHolder((CardView) LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.assignment_list_item, parent, false));
     }
 

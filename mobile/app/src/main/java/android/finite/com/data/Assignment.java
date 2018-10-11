@@ -56,6 +56,9 @@ public class Assignment extends LinesCardDataProvider {
     @ColumnInfo(name="projectId")
     private int parentProject;
 
+    @Ignore
+    private List<TimeEntry> times;
+
     public Assignment() {
 
     }
@@ -189,5 +192,9 @@ public class Assignment extends LinesCardDataProvider {
 
     public void setShortDescription(String shortDescription) {
         this.shortDescription = shortDescription;
+    }
+
+    public List<TimeEntry> getTimes() {
+        return this.times;
     }
 }

@@ -3,10 +3,8 @@ package android.finite.com.timetrack;
 import android.finite.com.data.Assignment;
 import android.finite.com.data.Project;
 import android.finite.com.timetrack.data.DataManager;
-import android.finite.com.timetrack.view.CardListAdapter;
 import android.finite.com.timetrack.view.DrawerListener;
-import android.finite.com.timetrack.view.InflatedCardListAdapter;
-import android.finite.com.timetrack.view.cards.GenericCardView;
+import android.finite.com.timetrack.view.AssigmentCardListAdapter;
 import android.finite.com.timetrack.view.cards.CardSelector;
 import android.finite.com.timetrack.view.spinner.ProjectSpinnerAdapter;
 import android.graphics.Color;
@@ -32,7 +30,7 @@ public class AssignmentsView extends AppCompatActivity implements CardSelector{
 
     private LinearLayoutManager layoutManager;
     private RecyclerView assigmentList;
-    private InflatedCardListAdapter adapater;
+    private AssigmentCardListAdapter adapater;
     private Spinner currentProjectSpinner;
     private CardView selectedCard;
     private Button makeCurrentButton;
@@ -47,7 +45,7 @@ public class AssignmentsView extends AppCompatActivity implements CardSelector{
 
         this.layoutManager = new LinearLayoutManager(this);
         this.assigmentList = (RecyclerView) findViewById(R.id.assigmentList);
-        this.adapater = new InflatedCardListAdapter((CardSelector) this);
+        this.adapater = new AssigmentCardListAdapter((CardSelector) this);
         this.assigmentList.setAdapter(this.adapater);
         this.assigmentList.setLayoutManager(this.layoutManager);
 

@@ -4,14 +4,17 @@ import android.finite.com.data.Assignment;
 import android.finite.com.data.Country;
 import android.finite.com.data.Customer;
 import android.finite.com.data.Project;
+import android.finite.com.data.TimeEntry;
 
 import com.google.android.gms.maps.model.LatLng;
 
+import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Currency;
+import java.util.GregorianCalendar;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,11 +25,13 @@ public class DummyDataManager extends DataManager {
     Map<Integer, Customer> customers = new LinkedHashMap<>();
     Map<Integer, Assignment> assignments = new LinkedHashMap<>();
     Map<Integer, List<Assignment>> projectAssigmentMapping = new LinkedHashMap<>();
+    Map<Integer, List<TimeEntry>> times = new LinkedHashMap<>();
 
     private int currentProjectId = 0;
     private int currentCustomerId = 0;
     private int currentCountryId = 0;
     private int currentAssignmentId = 0;
+    private int currentTimeId = 0;
 
     public DummyDataManager() {
         super();
@@ -36,8 +41,61 @@ public class DummyDataManager extends DataManager {
         for(int i = 0; i < this.currentProjectId; i++) {
             initAssigments(i);
         }
+        initTimes();
         this.currentProject = this.projects.get(0);
         this.currentAssignment = this.projectAssigmentMapping.get(0).get(0);
+    }
+
+    private void initTimes() {
+        DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        List<TimeEntry> entries = new ArrayList<>();
+        {
+            TimeEntry entry = null;
+            try {
+                entry = new TimeEntry(currentTimeId,
+                        format.parse("2018-03-23"),
+                        new GregorianCalendar(2018, 03,23,07,32,55).getTime(),
+                        new GregorianCalendar(2018, 03,23,19,45,05).getTime(),
+                        TimeEntry.Type.TRAVEL_PASSIV,
+                        0);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            currentTimeId++;
+            entries.add(entry);
+        }
+        {
+            TimeEntry entry = null;
+            try {
+                entry = new TimeEntry(currentTimeId,
+                        format.parse("2018-03-25"),
+                        new GregorianCalendar(2018, 03,24,10,15,19).getTime(),
+                        new GregorianCalendar(2018, 03,25,2,37,6).getTime(),
+                        TimeEntry.Type.TRAVEL_PASSIV,
+                        0);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            currentTimeId++;
+            entries.add(entry);
+        }
+        {
+            TimeEntry entry = null;
+            try {
+                entry = new TimeEntry(currentTimeId,
+                        format.parse("2018-03-25"),
+                        new GregorianCalendar(2018, 03,25,12,00,55).getTime(),
+                        new GregorianCalendar(2018, 03,25,22,45,05).getTime(),
+                        TimeEntry.Type.TRAVEL_PASSIV,
+                        0);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            currentTimeId++;
+            entries.add(entry);
+        }
+
+        this.times.put(0, entries);
     }
 
     private void initAssigments(int projectId) {
@@ -246,5 +304,9 @@ public class DummyDataManager extends DataManager {
             return this.projectAssigmentMapping.get(projectId);
         }
         return super.getAssignmentsForProject(projectId);
+    }
+
+    public List<TimeEntry> getTimesForAssignment(int assignmentId) {
+        return this.times.get(assignmentId);
     }
 }

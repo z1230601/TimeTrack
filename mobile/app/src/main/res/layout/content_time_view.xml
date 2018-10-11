@@ -11,6 +11,21 @@
     tools:context=".TimeView"
     tools:showIn="@layout/app_bar_time_view">
 
+    <TextView
+        android:id="@+id/assignmentName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical|center_horizontal"
+        android:text="TextView"
+        android:textColor="@color/app_text_color"
+        android:textSize="36sp"
+        android:textStyle="bold" />
+
+    <include
+        layout="@layout/date_time_area"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/timeList"
         android:layout_width="match_parent"

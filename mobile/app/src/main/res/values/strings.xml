@@ -99,5 +99,7 @@
     <string name="value_hint">Value</string>
     <string name="AssignmentView_makeCurrentButtonTitle">Make Current</string>
     <string name="title_activity_time_view">TimeView</string>
+    <string name="breakCardHeader">BreakTime</string>
+    <string name="worktimecardHeader">Working</string>
 
 </resources>

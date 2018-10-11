@@ -4,6 +4,7 @@ import android.finite.com.data.Assignment;
 import android.finite.com.data.Country;
 import android.finite.com.data.Customer;
 import android.finite.com.data.Project;
+import android.finite.com.data.TimeEntry;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -75,5 +76,9 @@ public class DataManager {
 
     public Project getSelectedProject() {
         return this.currentProject;
+    }
+
+    public List<TimeEntry> getTimesForAssignment(int assignmentId) {
+        return new ArrayList<>();
     }
 }

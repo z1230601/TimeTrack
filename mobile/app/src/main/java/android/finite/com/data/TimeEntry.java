@@ -3,6 +3,7 @@ package android.finite.com.data;
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.ForeignKey;
+import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
 
@@ -32,15 +33,29 @@ public class TimeEntry {
     @PrimaryKey
     private int timeId;
     @ColumnInfo(name="entrydate")
-    private Date date;
+    private Date entrydate;
     @ColumnInfo(name="startTime")
-    private Timestamp start;
+    private Date start;
     @ColumnInfo(name="endTime")
-    private Timestamp end;
+    private Date end;
     @ColumnInfo(name="type")
     private Type type;
     @ColumnInfo(name="assignmentId")
     private int assignmentId;
+
+    public TimeEntry() {
+
+    }
+
+    @Ignore
+    public TimeEntry(int timeId, Date entrydate, Date start, Date end, Type type, int assignmentId) {
+        this.timeId = timeId;
+        this.entrydate = entrydate;
+        this.start = start;
+        this.end = end;
+        this.type = type;
+        this.assignmentId = assignmentId;
+    }
 
     public int getTimeId() {
         return timeId;
@@ -50,27 +65,27 @@ public class TimeEntry {
         this.timeId = timeId;
     }
 
-    public Date getDate() {
-        return date;
+    public Date getEntrydate() {
+        return entrydate;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setEntrydate(Date entrydate) {
+        this.entrydate = entrydate;
     }
 
-    public Timestamp getStart() {
+    public Date getStart() {
         return start;
     }
 
-    public void setStart(Timestamp start) {
+    public void setStart(Date start) {
         this.start = start;
     }
 
-    public Timestamp getEnd() {
+    public Date getEnd() {
         return end;
     }
 
-    public void setEnd(Timestamp end) {
+    public void setEnd(Date end) {
         this.end = end;
     }
 
