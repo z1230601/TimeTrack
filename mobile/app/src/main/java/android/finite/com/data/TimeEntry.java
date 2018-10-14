@@ -8,6 +8,7 @@ import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
 
 import java.sql.Timestamp;
+import java.time.Duration;
 import java.util.Date;
 
 import static android.arch.persistence.room.ForeignKey.CASCADE;
@@ -16,6 +17,7 @@ import static android.arch.persistence.room.ForeignKey.CASCADE;
     parentColumns = "assignmentId", childColumns = "assignmentId", onDelete = CASCADE),
     indices = {@Index("timeId"), @Index("assignmentId")})
 public class TimeEntry {
+
     public enum Type {
         TRAVEL_PASSIV,
         TRAVLE_ACTIVE,
@@ -103,5 +105,14 @@ public class TimeEntry {
 
     public void setAssignmentId(int assignmentId) {
         this.assignmentId = assignmentId;
+    }
+
+    public Duration getWorkDuration() {
+        return null;
+    }
+
+
+    public Duration getBreakDuration() {
+        return null;
     }
 }

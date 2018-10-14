@@ -56,6 +56,11 @@ public class TimeCardListAdapter extends  RecyclerView.Adapter<TimeCardListAdapt
                 year.setText(dayFormat.format(assignment.getStart())
                         + "/" + dayFormat.format(assignment.getEnd()));
             }
+            TextView workDuration = this.cardView.findViewById(R.id.workingTimeData);
+            workDuration.setText(this.time.getWorkDuration());
+            TextView breakDuration = this.cardView.findViewById(R.id.breakDuration);
+            breakDuration.setText(this.time.getBreakDuration());
+
         }
     }
 
