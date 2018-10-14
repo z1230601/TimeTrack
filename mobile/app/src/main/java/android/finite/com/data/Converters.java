@@ -1,10 +1,12 @@
 package android.finite.com.data;
 
 import android.arch.persistence.room.TypeConverter;
+import android.finite.com.utility.Tuple;
 
 import com.google.android.gms.maps.model.LatLng;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Currency;
 import java.util.Date;
 import java.util.List;
@@ -78,4 +80,32 @@ public class Converters {
     public static String CurrencyToString(Currency data ) {
         return data.getCurrencyCode();
     }
+
+    @TypeConverter
+    public static String breaksToString(List<Tuple<Date, Date>> breaks) {
+        String entry = "";
+        for(int i=0; i < breaks.size(); i++) {
+            entry += breaks.get(i).first.getTime() + "," + breaks.get(i).second.getTime();
+            if(i != breaks.size() - 1) {
+                entry += "|";
+            }
+        }
+        return entry;
+    }
+
+    @TypeConverter
+    public static List<Tuple<Date, Date>> stringToBreaks(String data) {
+        List<Tuple<Date, Date>> ret = new ArrayList<Tuple<Date, Date>>();
+        List<String> tuples = new ArrayList<String>(Arrays.asList(data.split("|")));
+        for(String dataTuple : tuples){
+            String[] singleData = dataTuple.split(",");
+            if(singleData.length == 2) {
+                Date start = new Date(Long.parseLong(singleData[0]));
+                Date end = new Date(Long.parseLong(singleData[1]));
+                ret.add(new Tuple<Date, Date>(start, end));
+            }
+        }
+        return ret;
+    }
+
 }

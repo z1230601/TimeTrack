@@ -15,14 +15,21 @@
 
         <include
             layout="@layout/date_time_area"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="51dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
             android:layout_weight="1" />
 
         <include
             layout="@layout/duration_area"
-            android:layout_width="wrap_content"
+            android:layout_width="61dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <include
+            layout="@layout/time_task_description_area"
+            android:layout_width="196dp"
+            android:layout_height="match_parent"
             android:layout_weight="1" />
 
     </LinearLayout>

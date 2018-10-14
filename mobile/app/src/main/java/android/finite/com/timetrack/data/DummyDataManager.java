@@ -5,6 +5,7 @@ import android.finite.com.data.Country;
 import android.finite.com.data.Customer;
 import android.finite.com.data.Project;
 import android.finite.com.data.TimeEntry;
+import android.finite.com.utility.Tuple;
 
 import com.google.android.gms.maps.model.LatLng;
 
@@ -14,6 +15,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Currency;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -57,7 +59,13 @@ public class DummyDataManager extends DataManager {
                         new GregorianCalendar(2018, 03,23,07,32,55).getTime(),
                         new GregorianCalendar(2018, 03,23,19,45,05).getTime(),
                         TimeEntry.Type.TRAVEL_PASSIV,
-                        0);
+                        0,
+                        new ArrayList<Tuple<Date, Date>>(){{
+                            add(new Tuple<Date, Date>(
+                                    new GregorianCalendar(2018, 03,23,11,30,55).getTime(),
+                                    new GregorianCalendar(2018, 03,23,12,00,05).getTime()
+                            ));
+                        }});
             } catch (ParseException e) {
                 e.printStackTrace();
             }
@@ -72,7 +80,13 @@ public class DummyDataManager extends DataManager {
                         new GregorianCalendar(2018, 03,24,10,15,19).getTime(),
                         new GregorianCalendar(2018, 03,25,2,37,6).getTime(),
                         TimeEntry.Type.TRAVEL_PASSIV,
-                        0);
+                        0,
+                        new ArrayList<Tuple<Date, Date>>(){{
+                            add(new Tuple<Date, Date>(
+                                    new GregorianCalendar(2018, 03,24,16,30,55).getTime(),
+                                    new GregorianCalendar(2018, 03,24,17,00,05).getTime()
+                            ));
+                        }});
             } catch (ParseException e) {
                 e.printStackTrace();
             }
@@ -87,7 +101,13 @@ public class DummyDataManager extends DataManager {
                         new GregorianCalendar(2018, 03,25,12,00,55).getTime(),
                         new GregorianCalendar(2018, 03,25,22,45,05).getTime(),
                         TimeEntry.Type.TRAVEL_PASSIV,
-                        0);
+                        0,
+                        new ArrayList<Tuple<Date, Date>>(){{
+                            add(new Tuple<Date, Date>(
+                                    new GregorianCalendar(2018, 03,25,17,30,55).getTime(),
+                                    new GregorianCalendar(2018, 03,25,17,45,05).getTime()
+                            ));
+                        }});
             } catch (ParseException e) {
                 e.printStackTrace();
             }

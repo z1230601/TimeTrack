@@ -57,9 +57,9 @@ public class TimeCardListAdapter extends  RecyclerView.Adapter<TimeCardListAdapt
                         + "/" + dayFormat.format(assignment.getEnd()));
             }
             TextView workDuration = this.cardView.findViewById(R.id.workingTimeData);
-            workDuration.setText(this.time.getWorkDuration());
+            workDuration.setText(this.time.getWorkDurationInSeconds()/3600 + " h");
             TextView breakDuration = this.cardView.findViewById(R.id.breakDuration);
-            breakDuration.setText(this.time.getBreakDuration());
+            breakDuration.setText(this.time.getBreakDurationInSeconds()/60 + " min ");
 
         }
     }

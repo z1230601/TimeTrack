@@ -18,7 +18,7 @@
         android:id="@+id/divider2"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/app_dark_button_background"
+        android:background="@color/app_dark_triadic_background"
         android:paddingLeft="10dp"
         android:paddingRight="10dp" />
 

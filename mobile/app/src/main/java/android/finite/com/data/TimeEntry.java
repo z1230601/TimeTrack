@@ -6,10 +6,12 @@ import android.arch.persistence.room.ForeignKey;
 import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
+import android.finite.com.utility.Tuple;
 
 import java.sql.Timestamp;
 import java.time.Duration;
 import java.util.Date;
+import java.util.List;
 
 import static android.arch.persistence.room.ForeignKey.CASCADE;
 
@@ -42,21 +44,26 @@ public class TimeEntry {
     private Date end;
     @ColumnInfo(name="type")
     private Type type;
+
     @ColumnInfo(name="assignmentId")
     private int assignmentId;
+
+    @ColumnInfo(name="breaks")
+    private List<Tuple<Date, Date>> breaks;
 
     public TimeEntry() {
 
     }
 
     @Ignore
-    public TimeEntry(int timeId, Date entrydate, Date start, Date end, Type type, int assignmentId) {
+    public TimeEntry(int timeId, Date entrydate, Date start, Date end, Type type, int assignmentId, List<Tuple<Date, Date>> breaks) {
         this.timeId = timeId;
         this.entrydate = entrydate;
         this.start = start;
         this.end = end;
         this.type = type;
         this.assignmentId = assignmentId;
+        this.breaks = breaks;
     }
 
     public int getTimeId() {
@@ -107,12 +114,25 @@ public class TimeEntry {
         this.assignmentId = assignmentId;
     }
 
-    public Duration getWorkDuration() {
-        return null;
+
+    public List<Tuple<Date, Date>> getBreaks() {
+        return breaks;
+    }
+
+    public void setBreaks(List<Tuple<Date, Date>> breaks) {
+        this.breaks = breaks;
+    }
+
+    public long getWorkDurationInSeconds() {
+        return (this.end.getTime() - this.start.getTime())/1000  - getBreakDurationInSeconds();
     }
 
 
-    public Duration getBreakDuration() {
-        return null;
+    public long getBreakDurationInSeconds() {
+        long secondsBreak = 0;
+        for(Tuple<Date, Date> breakEntry : this.breaks) {
+            secondsBreak += (breakEntry.second.getTime() - breakEntry.first.getTime());
+        }
+        return secondsBreak/1000;
     }
 }
