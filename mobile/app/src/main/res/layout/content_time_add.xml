@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/app_light_background"
+    android:orientation="vertical"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".TimeAddActivity"
+    tools:showIn="@layout/activity_time_add">
+
+    <EditText
+        android:id="@+id/fromDate"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/spinner_height"
+        android:clickable="true"
+
+        android:ems="10"
+        android:inputType="date" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/fromTime"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/spinner_height"
+            android:ems="10"
+            android:inputType="time" />
+
+        <AutoCompleteTextView
+            android:id="@+id/fromTmz"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/spinner_height"
+            android:layout_weight="1" />
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/toDate"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/spinner_height"
+        android:editable="false"
+        android:ems="10"
+        android:inputType="date" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/toTime"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/spinner_height"
+            android:editable="false"
+            android:ems="10"
+            android:inputType="time" />
+
+        <AutoCompleteTextView
+            android:id="@+id/toTmz"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/spinner_height"
+            android:layout_weight="1" />
+    </LinearLayout>
+
+</LinearLayout>

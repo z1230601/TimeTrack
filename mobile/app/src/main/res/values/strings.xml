@@ -101,5 +101,7 @@
     <string name="title_activity_time_view">TimeView</string>
     <string name="breakCardHeader">Break</string>
     <string name="worktimecardHeader">Work</string>
+    <string name="title_activity_time_add">TimeAddActivity</string>
+    <string name="TMZ_UNKNOWN">Unkown time zone.</string>
 
 </resources>

@@ -1,7 +1,7 @@
 package android.finite.com.timetrack.view.spinner;
 
 import android.app.Activity;
-import android.finite.com.data.Project;
+import android.finite.com.timetrack.db.data.Project;
 import android.finite.com.timetrack.R;
 import android.finite.com.timetrack.data.DataManager;
 import android.widget.ArrayAdapter;

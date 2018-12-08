@@ -1,10 +1,10 @@
 package android.finite.com.timetrack.data;
 
-import android.finite.com.data.Assignment;
-import android.finite.com.data.Country;
-import android.finite.com.data.Customer;
-import android.finite.com.data.Project;
-import android.finite.com.data.TimeEntry;
+import android.finite.com.timetrack.db.data.Assignment;
+import android.finite.com.timetrack.db.data.Country;
+import android.finite.com.timetrack.db.data.Customer;
+import android.finite.com.timetrack.db.data.Project;
+import android.finite.com.timetrack.db.data.TimeEntry;
 
 import java.util.ArrayList;
 import java.util.List;

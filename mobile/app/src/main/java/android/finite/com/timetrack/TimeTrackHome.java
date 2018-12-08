@@ -1,12 +1,12 @@
 package android.finite.com.timetrack;
 
 import android.content.Intent;
-import android.finite.com.data.Assignment;
-import android.finite.com.data.Project;
-import android.finite.com.data.User;
+import android.finite.com.timetrack.db.data.Assignment;
+import android.finite.com.timetrack.db.data.Project;
+import android.finite.com.timetrack.db.data.User;
 import android.finite.com.timetrack.data.DataManager;
 import android.finite.com.timetrack.data.DummyDataManager;
-import android.finite.com.timetrack.view.DrawerListener;
+import android.finite.com.timetrack.view.listener.DrawerListener;
 import android.finite.com.timetrack.view.spinner.AssigmentSpinnerAdapter;
 import android.finite.com.timetrack.view.spinner.ProjectSpinnerAdapter;
 import android.os.Bundle;

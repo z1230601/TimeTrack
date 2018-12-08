@@ -6,26 +6,10 @@
     android:padding="5dp">
 
     <TextView
-        android:id="@+id/assignmentName"
+        android:id="@+id/doneTasks"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical|center_horizontal"
-        android:text="NAME"
-        android:textColor="@color/common_google_signin_btn_text_dark_focused"
-        android:textSize="18sp" />
-
-    <View
-        android:id="@+id/divider2"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/app_dark_triadic_background"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp" />
-
-    <TextView
-        android:id="@+id/shortDescription"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="DESCRIPTION" />
+        android:layout_height="match_parent"
+        android:gravity="top|center_horizontal"
+        android:text="Done Tasks" />
 
 </LinearLayout>

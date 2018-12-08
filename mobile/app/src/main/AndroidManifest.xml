@@ -28,7 +28,7 @@
                 android:value="android.finite.com.timetrack.TimeTrackHome" />
         </activity>
         <activity
-            android:name=".ProjectsView"
+            android:name=".view.activities.ProjectsView"
             android:label="@string/title_activity_projects_view"
             android:parentActivityName=".TimeTrackHome"
             android:theme="@style/AppTheme.NoActionBar">
@@ -37,16 +37,16 @@
                 android:value="android.finite.com.timetrack.TimeTrackHome" />
         </activity>
         <activity
-            android:name=".ProjectDataView"
+            android:name=".view.activities.ProjectDataView"
             android:label="@string/title_activity_project_data_view"
-            android:parentActivityName=".ProjectsView"
+            android:parentActivityName=".view.activities.ProjectsView"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="android.finite.com.timetrack.ProjectsView" />
+                android:value="android.finite.com.timetrack.view.activities.ProjectsView" />
         </activity>
         <activity
-            android:name=".AssignmentsView"
+            android:name=".view.activities.AssignmentsView"
             android:label="@string/title_activity_assignments"
             android:parentActivityName=".TimeTrackHome"
             android:theme="@style/AppTheme.NoActionBar">
@@ -55,9 +55,18 @@
                 android:value="android.finite.com.timetrack.TimeTrackHome" />
         </activity>
         <activity
-            android:name=".TimeView"
+            android:name=".view.activities.TimeView"
             android:label="@string/title_activity_time_view"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".TimeAddActivity"
+            android:label="@string/title_activity_time_add"
+            android:parentActivityName=".view.activities.TimeView"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="android.finite.com.timetrack.view.activities.TimeView" />
+        </activity>
     </application>
 
 </manifest>

@@ -1,15 +1,14 @@
 package android.finite.com.timetrack.data;
 
-import android.finite.com.data.Assignment;
-import android.finite.com.data.Country;
-import android.finite.com.data.Customer;
-import android.finite.com.data.Project;
-import android.finite.com.data.TimeEntry;
+import android.finite.com.timetrack.db.data.Assignment;
+import android.finite.com.timetrack.db.data.Country;
+import android.finite.com.timetrack.db.data.Customer;
+import android.finite.com.timetrack.db.data.Project;
+import android.finite.com.timetrack.db.data.TimeEntry;
 import android.finite.com.utility.Tuple;
 
 import com.google.android.gms.maps.model.LatLng;
 
-import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -40,9 +39,7 @@ public class DummyDataManager extends DataManager {
         initProjectSampleData();
         initSampleCountries();
         initSampleCustomers();
-        for(int i = 0; i < this.currentProjectId; i++) {
-            initAssigments(i);
-        }
+        initAssigments();
         initTimes();
         this.currentProject = this.projects.get(0);
         this.currentAssignment = this.projectAssigmentMapping.get(0).get(0);
@@ -62,8 +59,8 @@ public class DummyDataManager extends DataManager {
                         0,
                         new ArrayList<Tuple<Date, Date>>(){{
                             add(new Tuple<Date, Date>(
-                                    new GregorianCalendar(2018, 03,23,11,30,55).getTime(),
-                                    new GregorianCalendar(2018, 03,23,12,00,05).getTime()
+                                    new GregorianCalendar(2018, 03,23,11,30,00).getTime(),
+                                    new GregorianCalendar(2018, 03,23,12,00,00).getTime()
                             ));
                         }});
             } catch (ParseException e) {
@@ -83,8 +80,8 @@ public class DummyDataManager extends DataManager {
                         0,
                         new ArrayList<Tuple<Date, Date>>(){{
                             add(new Tuple<Date, Date>(
-                                    new GregorianCalendar(2018, 03,24,16,30,55).getTime(),
-                                    new GregorianCalendar(2018, 03,24,17,00,05).getTime()
+                                    new GregorianCalendar(2018, 03,24,16,30,00).getTime(),
+                                    new GregorianCalendar(2018, 03,24,17,00,00).getTime()
                             ));
                         }});
             } catch (ParseException e) {
@@ -104,8 +101,8 @@ public class DummyDataManager extends DataManager {
                         0,
                         new ArrayList<Tuple<Date, Date>>(){{
                             add(new Tuple<Date, Date>(
-                                    new GregorianCalendar(2018, 03,25,17,30,55).getTime(),
-                                    new GregorianCalendar(2018, 03,25,17,45,05).getTime()
+                                    new GregorianCalendar(2018, 03,25,17,30,00).getTime(),
+                                    new GregorianCalendar(2018, 03,25,17,45,00).getTime()
                             ));
                         }});
             } catch (ParseException e) {
@@ -118,20 +115,20 @@ public class DummyDataManager extends DataManager {
         this.times.put(0, entries);
     }
 
-    private void initAssigments(int projectId) {
+    private void initAssigments() {
         DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         List<Assignment> projectAssigments = new ArrayList<>();
         {
             Assignment assign = null;
             try {
                 assign = new Assignment(this.currentAssignmentId,
-                        projectId + "Mobile Android App Development",
-                        "This task entails the implementation of the Android Application. ",
-                        format.parse("2018-03-23"),
-                        format.parse("2018-03-30"),
-                        "Implement an app for." + projectId,
+                        "Implement GUI",
+                        "This task entails the implementation of the GUI of the Android Application.",
+                        format.parse("2018-03-01"),
+                        format.parse("2019-03-30"),
+                        "Implement app view for the Android app.",
                         "",
-                        "65464846186", projectId);
+                        "65464846186", 0);
             } catch (ParseException e) {
                 e.printStackTrace();
             }
@@ -145,13 +142,14 @@ public class DummyDataManager extends DataManager {
             Assignment assign = null;
             try {
                 assign = new Assignment(this.currentAssignmentId,
-                        projectId + "Implement WebGui",
-                        "This assignments deals with implementing the web gui of the solution.",
-                        format.parse("2018-04-23"),
-                        format.parse("2018-04-30"),
-                        "Do something really important." + projectId,
+                        "Implement Database Backend",
+                        "This assignment should produce a backend for the time tracking application.",
+                        format.parse("2018-03-01"),
+                        format.parse("2019-03-30"),
                         "",
-                        "65464846186", projectId);
+                        "",
+                        "65464846186",
+                        0);
             } catch (ParseException e) {
                 e.printStackTrace();
             }
@@ -163,13 +161,13 @@ public class DummyDataManager extends DataManager {
             Assignment assign = null;
             try {
                 assign = new Assignment(this.currentAssignmentId,
-                        projectId + "Server Process",
-                        "This assignment deals with the implementation of the underlaying server process.",
-                        format.parse("2018-05-23"),
-                        format.parse("2018-05-30"),
-                        "Do something really not that important."+ projectId,
+                        "Testing",
+                        "This assignment deals with thorough tests of the mobile application.",
+                        format.parse("2018-03-01"),
+                        format.parse("2019-03-30"),
                         "",
-                        "1234", projectId);
+                        "",
+                        "1234", 0);
             } catch (ParseException e) {
                 e.printStackTrace();
             }
@@ -178,35 +176,14 @@ public class DummyDataManager extends DataManager {
         }
         this.currentAssignmentId++;
 
-        this.projectAssigmentMapping.put(projectId, projectAssigments);
+        this.projectAssigmentMapping.put(0, projectAssigments);
     }
 
     private void initSampleCustomers() {
         {
-            Customer customer = new Customer(this.currentCustomerId, "SOME FANCY NAME d.o.o", "Wienerstraße 27, 1040 Wien",
-                    "SOME FANCY NAME d.o.o", "Wienerstraße 27, 1040 Wien",
+            Customer customer = new Customer(this.currentCustomerId, "TEST 1", "Wienerstraße 27, 1040 Wien",
+                    "Test1 e.U.", "Wienerstraße 27, 1040 Wien",
                     "0043 664 555 555 55");
-            this.customers.put(this.currentCustomerId, customer);
-        }
-        this.currentCustomerId++;
-        {
-            Customer customer = new Customer(this.currentCustomerId, "Training LTD", "Appstreet 39, 90923932 Yangon",
-                    "FT LTD", "Appstreet 39, 90923932 Yangon",
-                    "0256 66 6565 65656");
-            this.customers.put(this.currentCustomerId, customer);
-        }
-        this.currentCustomerId++;
-        {
-            Customer customer = new Customer(this.currentCustomerId, "Swiss GmbH", "Züricherstraße 15, 9092 Genf",
-                    "Swiss GmbH", "Züricherstraße 39, 9092 Genf",
-                    "001 66 6565 65656");
-            this.customers.put(this.currentCustomerId, customer);
-        }
-        this.currentCustomerId++;
-        {
-            Customer customer = new Customer(this.currentCustomerId, "Some Company LTD", "OnotherStreet 39, 90923932 Seattle",
-                    "Some Company LTD", "OnotherStreet 39, 90923932 Seattle",
-                    "0256 66 6565 65656");
             this.customers.put(this.currentCustomerId, customer);
         }
         this.currentCustomerId++;
@@ -214,26 +191,8 @@ public class DummyDataManager extends DataManager {
 
     private void initSampleCountries() {
         {
-            Country country = new Country(this.currentCountryId, "Germany",
-                    new LatLng(22.147920, 96.059790),Currency.getInstance("MMK"));
-            countries.put(this.currentCountryId, country);
-        }
-        this.currentCountryId++;
-        {
             Country country = new Country(this.currentCountryId, "Austria",
                     new LatLng(47.376656, 14.180806),Currency.getInstance("EUR"));
-            countries.put(this.currentCountryId, country);
-        }
-        this.currentCountryId++;
-        {
-            Country country = new Country(this.currentCountryId, "China",
-                    new LatLng(22.440366, 78.717554),Currency.getInstance("INR"));
-            countries.put(this.currentCountryId, country);
-        }
-        this.currentCountryId++;
-        {
-            Country country = new Country(this.currentCountryId, "Australia",
-                    new LatLng(-24.793458, 133.714829),Currency.getInstance("AUD"));
             countries.put(this.currentCountryId, country);
         }
         this.currentCountryId++;
@@ -241,32 +200,21 @@ public class DummyDataManager extends DataManager {
 
     public void initProjectSampleData() {
         {
-            Project proj = new Project("Dog",this.currentProjectId, 0, 0);
-            proj.setAdditionalProperty("Aircraftype", "ATR72-500");
+            Project proj = new Project("T2MobileApp",this.currentProjectId, 0, 0);
+            proj.setAdditionalProperty("Target Platform", "Android");
             projects.put(this.currentProjectId, proj);
         }
         this.currentProjectId++;
         {
-            Project proj = new Project("Hamster",this.currentProjectId, 1, 1);
-            proj.setAdditionalProperty("Aircraftype", "ATR72-500");
+            Project proj = new Project("T2Server",this.currentProjectId, 0, 0);
+            proj.setAdditionalProperty("Language", "C++");
+            proj.setAdditionalProperty("Interfaces", "HTTP/TCP:JSON");
             projects.put(this.currentProjectId, proj);
         }
         this.currentProjectId++;
         {
-            Project proj = new Project("Jojo",this.currentProjectId, 2, 2);
-            proj.setAdditionalProperty("Aircraftype", "ATR72-600");
-            projects.put(this.currentProjectId, proj);
-        }
-        this.currentProjectId++;
-        {
-            Project proj = new Project("Kondor",this.currentProjectId, 3, 3);
-            proj.setAdditionalProperty("Aircraftype", "ATR72-600");
-            projects.put(this.currentProjectId, proj);
-        }
-        this.currentProjectId++;
-        {
-            Project proj = new Project("Laprados",this.currentProjectId, 3, 3);
-            proj.setAdditionalProperty("Aircraftype", "CJ1+");
+            Project proj = new Project("T2Gui",this.currentProjectId, 0, 0);
+            proj.setAdditionalProperty("Platforms", "Web & Desktop");
             projects.put(this.currentProjectId, proj);
         }
         this.currentProjectId++;

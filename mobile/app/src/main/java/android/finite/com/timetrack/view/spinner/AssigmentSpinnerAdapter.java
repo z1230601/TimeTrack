@@ -1,10 +1,8 @@
 package android.finite.com.timetrack.view.spinner;
 
 import android.app.Activity;
-import android.finite.com.data.Assignment;
-import android.finite.com.data.Project;
+import android.finite.com.timetrack.db.data.Assignment;
 import android.finite.com.timetrack.R;
-import android.finite.com.timetrack.TimeTrackHome;
 import android.finite.com.timetrack.data.DataManager;
 import android.widget.ArrayAdapter;
 import android.widget.SpinnerAdapter;
