@@ -63,6 +63,9 @@ public class TimeCardListAdapter extends  RecyclerView.Adapter<TimeCardListAdapt
             TextView doneTasks = this.cardView.findViewById(R.id.doneTasks);
             doneTasks.setText(this.time.getDoneTasks());
 
+            TextView type = this.cardView.findViewById(R.id.type);
+            type.setText(this.time.getType().name);
+
         }
     }
 

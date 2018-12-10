@@ -81,4 +81,8 @@ public class DataManager {
     public List<TimeEntry> getTimesForAssignment(int assignmentId) {
         return new ArrayList<>();
     }
+
+    public void saveNewTimeEntry(TimeEntry entry) {
+
+    }
 }

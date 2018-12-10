@@ -22,13 +22,22 @@
 
         <include
             layout="@layout/duration_area"
-            android:layout_width="61dp"
+            android:layout_width="64dp"
             android:layout_height="wrap_content"
             android:layout_weight="1" />
 
+        <TextView
+            android:id="@+id/type"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:rotation="-90" />
+
         <include
             layout="@layout/time_task_description_area"
-            android:layout_width="196dp"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1" />
 

@@ -76,7 +76,7 @@ public class DummyDataManager extends DataManager {
                         format.parse("2018-03-25"),
                         new GregorianCalendar(2018, 03,24,10,15,19).getTime(),
                         new GregorianCalendar(2018, 03,25,2,37,6).getTime(),
-                        TimeEntry.Type.TRAVEL_PASSIV,
+                        TimeEntry.Type.TRAVEL_ACTIVE,
                         0,
                         new ArrayList<Tuple<Date, Date>>(){{
                             add(new Tuple<Date, Date>(
@@ -97,7 +97,7 @@ public class DummyDataManager extends DataManager {
                         format.parse("2018-03-25"),
                         new GregorianCalendar(2018, 03,25,12,00,55).getTime(),
                         new GregorianCalendar(2018, 03,25,22,45,05).getTime(),
-                        TimeEntry.Type.TRAVEL_PASSIV,
+                        TimeEntry.Type.WORK,
                         0,
                         new ArrayList<Tuple<Date, Date>>(){{
                             add(new Tuple<Date, Date>(
@@ -276,5 +276,13 @@ public class DummyDataManager extends DataManager {
 
     public List<TimeEntry> getTimesForAssignment(int assignmentId) {
         return this.times.get(assignmentId);
+    }
+
+    public void saveNewTimeEntry(TimeEntry entry) {
+        entry.setTimeId(this.currentTimeId);
+        this.currentTimeId++;
+        if(this.times.containsKey(this.getSelectedAssignment().getAssignmentId())) {
+            this.times.get(this.getSelectedAssignment().getAssignmentId()).add(entry);
+        }
     }
 }

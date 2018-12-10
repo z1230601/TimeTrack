@@ -8,6 +8,7 @@ import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
 import android.finite.com.utility.Tuple;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -18,9 +19,15 @@ import static android.arch.persistence.room.ForeignKey.CASCADE;
     indices = {@Index("timeId"), @Index("assignmentId")})
 public class TimeEntry {
     public enum Type {
-        TRAVEL_PASSIV,
-        TRAVLE_ACTIVE,
-        WORK;
+        TRAVEL_PASSIV("Reise Passiv"),
+        TRAVEL_ACTIVE("Reise Aktiv"),
+        WORK("Arbeit");
+
+        public final String name;
+
+        Type(String name) {
+            this.name = name;
+        }
 
         public static Type fromOrdinal(int type) {
             for(Type typeEnumartion : values()) {
@@ -30,7 +37,25 @@ public class TimeEntry {
             }
             return WORK;
         }
+
+        public static Type fromName(String name) {
+            for(Type typeEnumartion : values()) {
+                if(typeEnumartion.name == name){
+                    return typeEnumartion;
+                }
+            }
+            return WORK;
+        }
+
+        public static List<String> getList() {
+            List<String> typeList = new ArrayList<String>();
+            for(Type type : values()) {
+                typeList.add(type.name);
+            }
+            return typeList;
+        }
     };
+
     @PrimaryKey
     private int timeId;
     @ColumnInfo(name="entrydate")

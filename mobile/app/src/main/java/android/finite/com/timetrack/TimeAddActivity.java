@@ -12,9 +12,13 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
+import android.widget.Spinner;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.TimeZone;
 
 public class TimeAddActivity extends AppCompatActivity {
@@ -28,6 +32,9 @@ public class TimeAddActivity extends AppCompatActivity {
     private AutoCompleteTextView toTmz;
     private ArrayAdapter<String> fromTimeZoneAdapter;
     private ArrayAdapter<String> toTimeZoneAdapter;
+    private Spinner type;
+    private ArrayAdapter<String> typeAdapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,15 +43,19 @@ public class TimeAddActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         this.timeHandler = new TimeHandler();
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.saveNewTimeFab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                timeHandler.saveTimeEntry(fromDate.getText().toString(), fromTime.getText().toString(),
-                        toDate.getText().toString(), toTime.getText().toString());
+                timeHandler.saveTimeEntry(fromDate.getText().toString(), fromTime.getText().toString(), fromTmz.getText().toString(),
+                        toDate.getText().toString(), toTime.getText().toString(), toTmz.getText().toString(),
+                        (String) type.getSelectedItem());
+                finish();
             }
         });
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        initType();
         initDates();
         initTimes();
         initTimesZones();
@@ -52,9 +63,19 @@ public class TimeAddActivity extends AppCompatActivity {
 
     }
 
+    private void initType() {
+        this.type = (Spinner) findViewById(R.id.typeSpinner);
+        this.typeAdapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_dropdown_item_1line, this.timeHandler.getTypes());
+        this.type.setAdapter(this.typeAdapter);
+    }
+
     private void initTimesZones() {
-        this.fromTmz = (AutoCompleteTextView) findViewById(R.id.fromTmz);
+       this.fromTmz = (AutoCompleteTextView) findViewById(R.id.fromTmz);
         this.toTmz = (AutoCompleteTextView) findViewById(R.id.toTmz);
+
+        this.fromTmz.setText(TimeZone.getDefault().getID());
+        this.toTmz.setText(TimeZone.getDefault().getID());
 
         ArrayList<String> timezones = new ArrayList<String>(Arrays.asList(TimeZone.getAvailableIDs()));
 
@@ -75,6 +96,17 @@ public class TimeAddActivity extends AppCompatActivity {
                 }
             }
         });
+
+        this.toTmz.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                if(!b) {
+                    if(!isTimeZoneValid(toTmz)) {
+                        toTmz.setError(getResources().getString(R.string.TMZ_UNKNOWN));
+                    }
+                }
+            }
+        });
     }
 
     private boolean isTimeZoneValid(AutoCompleteTextView fromTmz) {
@@ -87,18 +119,25 @@ public class TimeAddActivity extends AppCompatActivity {
         this.fromTime = (EditText) findViewById(R.id.fromTime);
         this.toTime = (EditText) findViewById(R.id.toTime);
 
+        this.fromTime.setText(this.timeHandler.getTimeFormat().format(Calendar.getInstance().getTime()));
+        this.toTime.setText(this.timeHandler.getTimeFormat().format(Calendar.getInstance().getTime()));
+
         fromTime.setClickable(true);
         fromTime.setKeyListener(null);
         fromTime.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) { if(view instanceof EditText) {showTimePicker(fromTime, toTime);} }
+            public void onClick(View view) {
+                if(view instanceof EditText) {
+                    showTimePicker(fromTime);
+                }
+            }
         });
         fromTime.setOnFocusChangeListener(new View.OnFocusChangeListener() {
 
             @Override
             public void onFocusChange(View view, boolean b) {
                 if(view instanceof EditText && b) {
-                    showTimePicker(fromTime, toTime);
+                    showTimePicker(fromTime);
                 }
             }
         });
@@ -109,7 +148,7 @@ public class TimeAddActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(view instanceof EditText) {
-                    showTimePicker(toTime, null);
+                    showTimePicker(toTime);
                 }
             }
         });
@@ -118,7 +157,7 @@ public class TimeAddActivity extends AppCompatActivity {
             @Override
             public void onFocusChange(View view, boolean b) {
                 if(view instanceof EditText && b) {
-                    showTimePicker(toTime, null);
+                    showTimePicker(toTime);
                 }
             }
         });
@@ -127,16 +166,29 @@ public class TimeAddActivity extends AppCompatActivity {
     private void initDates() {
         this.fromDate = (EditText) findViewById(R.id.fromDate);
         this.toDate = (EditText) findViewById(R.id.toDate);
+        final Calendar c = Calendar.getInstance();
+
+        this.fromDate.setText(this.timeHandler.getDateFormat().format(c.getTime()));
+        this.toDate.setText(this.timeHandler.getDateFormat().format(c.getTime()));
+
         fromDate.setClickable(true);
         fromDate.setKeyListener(null);
         fromDate.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {if(view instanceof EditText) {showDatePicker(fromDate, toDate);}}
+            public void onClick(View view) {
+                if(view instanceof EditText) {
+                    showDatePicker(fromDate);
+                }
+            }
         });
         fromDate.setOnFocusChangeListener(new View.OnFocusChangeListener() {
 
             @Override
-            public void onFocusChange(View view, boolean b) {if(view instanceof EditText && b) {showDatePicker(fromDate, toDate);}}
+            public void onFocusChange(View view, boolean b) {
+                if(view instanceof EditText && b) {
+                    showDatePicker(fromDate);
+                }
+            }
         });
 
         toDate.setClickable(true);
@@ -145,7 +197,7 @@ public class TimeAddActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(view instanceof EditText) {
-                    showDatePicker(toDate, null);
+                    showDatePicker(toDate);
                 }
             }
         });
@@ -154,21 +206,21 @@ public class TimeAddActivity extends AppCompatActivity {
             @Override
             public void onFocusChange(View view, boolean b) {
                 if(view instanceof EditText && b) {
-                    showDatePicker(toDate, null);
+                    showDatePicker(toDate);
                 }
             }
         });
     }
 
-    public void showDatePicker(EditText fromDate, EditText toDate) {
+    public void showDatePicker(EditText date) {
         DialogFragment newFragment = new DatePickerFragment();
-        ((DatePickerFragment) newFragment).setSource(fromDate, toDate);
+        ((DatePickerFragment) newFragment).setSource(date);
         newFragment.show(getFragmentManager(), "Date Picker");
     }
 
-    private void showTimePicker(EditText fromTime, EditText toTime) {
+    private void showTimePicker(EditText time) {
         DialogFragment newFragment = new TimePickerFragment();
-        ((TimePickerFragment) newFragment).setSource(fromTime, toTime);
+        ((TimePickerFragment) newFragment).setSource(time);
         newFragment.show(getFragmentManager(), "Time Picker");
     }
 

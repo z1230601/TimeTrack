@@ -10,6 +10,12 @@
     tools:context=".TimeAddActivity"
     tools:showIn="@layout/activity_time_add">
 
+    <Spinner
+        android:id="@+id/typeSpinner"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/integrated_spinner_height"
+        android:descendantFocusability="beforeDescendants" />
+
     <EditText
         android:id="@+id/fromDate"
         android:layout_width="match_parent"
@@ -17,6 +23,9 @@
         android:clickable="true"
 
         android:ems="10"
+        android:focusable="false"
+        android:gravity="center"
+        android:hint="From Date"
         android:inputType="date" />
 
     <LinearLayout
@@ -29,13 +38,16 @@
             android:layout_width="wrap_content"
             android:layout_height="@dimen/spinner_height"
             android:ems="10"
+            android:focusable="false"
+            android:hint="From Time"
             android:inputType="time" />
 
         <AutoCompleteTextView
             android:id="@+id/fromTmz"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/spinner_height"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:hint="From Timezone" />
     </LinearLayout>
 
     <EditText
@@ -44,6 +56,9 @@
         android:layout_height="@dimen/spinner_height"
         android:editable="false"
         android:ems="10"
+        android:focusable="false"
+        android:gravity="center"
+        android:hint="To Date"
         android:inputType="date" />
 
     <LinearLayout
@@ -57,13 +72,16 @@
             android:layout_height="@dimen/spinner_height"
             android:editable="false"
             android:ems="10"
+            android:focusable="false"
+            android:hint="To Time"
             android:inputType="time" />
 
         <AutoCompleteTextView
             android:id="@+id/toTmz"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/spinner_height"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:hint="To Timezone" />
     </LinearLayout>
 
 </LinearLayout>

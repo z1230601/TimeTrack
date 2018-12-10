@@ -6,6 +6,7 @@ import android.finite.com.timetrack.TimeAddActivity;
 import android.finite.com.timetrack.db.data.Assignment;
 import android.finite.com.timetrack.db.data.TimeEntry;
 import android.finite.com.timetrack.data.DataManager;
+import android.finite.com.timetrack.view.cards.GenericCardView;
 import android.finite.com.timetrack.view.listener.DrawerListener;
 import android.finite.com.timetrack.view.cards.AssigmentCardListAdapter;
 import android.finite.com.timetrack.view.cards.TimeCardListAdapter;
@@ -16,6 +17,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -32,10 +34,14 @@ import java.text.SimpleDateFormat;
 
 public class TimeView extends AppCompatActivity implements CardSelector {
 
+    private static final int TIME_ADD_REQUEST_CODE = 1024;
+
     private LinearLayoutManager layoutManager;
     private RecyclerView timeList;
     private AssigmentCardListAdapter adapater;
     private TimeCardListAdapter cardListAdapter;
+    private Assignment selected;
+    private GenericCardView selectedCard;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +56,7 @@ public class TimeView extends AppCompatActivity implements CardSelector {
             public void onClick(View view) {
                 Intent intent = new Intent();
                 intent.setClass(view.getContext(), TimeAddActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent, TIME_ADD_REQUEST_CODE);
             }
         });
 
@@ -62,7 +68,7 @@ public class TimeView extends AppCompatActivity implements CardSelector {
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(new DrawerListener(this));
-        Assignment selected = DataManager.get().getSelectedAssignment();
+        this.selected = DataManager.get().getSelectedAssignment();
         init(selected);
     }
 
@@ -122,9 +128,32 @@ public class TimeView extends AppCompatActivity implements CardSelector {
     }
 
     @Override
-    public void setSelectedCard(CardView cardView, Object associacation) {
-        if(associacation instanceof TimeEntry){
+    public void setSelectedCard(CardView card, Object associacation) {
+//        if(associacation instanceof TimeEntry){
+//            if(this.selectedCard != null) {
+//                this.selectedCard.resetSelection();
+//            }
+//
+//            if(this.selectedCard == card){
+//                this.selectedCard = null;
+//            } else {
+//                this.selectedCard = (GenericCardView) card;
+//            }
+//            if ( this.selectedCard == null ) {
+//               // findViewById(R.id.editFab).setVisibility(View.GONE);
+//            } else {
+//                //findViewById(R.id.editFab).setVisibility(View.VISIBLE);
+//                this.selectedCard.setCardBackgroundColor(getResources().getColor(android.R.color.holo_blue_light));
+//            }
+//        }
+    }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Log.d("TimeView", "Got request Code " + requestCode);
+        if(requestCode == TIME_ADD_REQUEST_CODE) {
+            init(selected);
         }
     }
+
 }
