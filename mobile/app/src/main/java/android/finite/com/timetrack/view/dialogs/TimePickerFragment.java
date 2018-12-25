@@ -14,7 +14,13 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 
 public class TimePickerFragment extends DialogFragment {
+    enum Flavour{
+        FROM,
+        TO
+    }
     private EditText input = null;
+    private Flavour flavour;
+
     private TimePickerDialog.OnTimeSetListener timeSetListener =  new TimePickerDialog.OnTimeSetListener() {
         @Override
         public void onTimeSet(TimePicker view, int hours, int minutes) {
@@ -26,9 +32,12 @@ public class TimePickerFragment extends DialogFragment {
 
     public void setListener(TimePickerDialog.OnTimeSetListener listener) {
         this.timeSetListener = listener;
-
-
     }
+
+    public void setFlavour(Flavour flav) {
+        this.flavour = flav;
+    }
+
     public void setSource(EditText input) {
         this.input = input;
     }

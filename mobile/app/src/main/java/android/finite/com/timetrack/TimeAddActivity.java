@@ -1,6 +1,7 @@
 package android.finite.com.timetrack;
 
 import android.app.DialogFragment;
+import android.app.TimePickerDialog;
 import android.finite.com.timetrack.controller.TimeHandler;
 import android.finite.com.timetrack.view.dialogs.DatePickerFragment;
 import android.finite.com.timetrack.view.dialogs.TimePickerFragment;
@@ -13,6 +14,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TimePicker;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -215,12 +217,14 @@ public class TimeAddActivity extends AppCompatActivity {
     public void showDatePicker(EditText date) {
         DialogFragment newFragment = new DatePickerFragment();
         ((DatePickerFragment) newFragment).setSource(date);
+
         newFragment.show(getFragmentManager(), "Date Picker");
     }
 
     private void showTimePicker(EditText time) {
         DialogFragment newFragment = new TimePickerFragment();
         ((TimePickerFragment) newFragment).setSource(time);
+
         newFragment.show(getFragmentManager(), "Time Picker");
     }
 

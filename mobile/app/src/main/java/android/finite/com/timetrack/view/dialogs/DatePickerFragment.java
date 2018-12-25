@@ -14,10 +14,20 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 
 public class DatePickerFragment extends DialogFragment {
+    enum Flavour{
+        FROM,
+        TO
+    }
     private EditText input = null;
+    private Flavour flavour;
 
     public void setSource(EditText input) {
         this.input = input;
+    }
+
+
+    public void setFlavour(Flavour flav) {
+        this.flavour = flav;
     }
 
     @Override
