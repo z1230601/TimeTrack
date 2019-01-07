@@ -11,6 +11,7 @@ import android.finite.com.timetrack.view.listener.DrawerListener;
 import android.finite.com.timetrack.view.cards.AssigmentCardListAdapter;
 import android.finite.com.timetrack.view.cards.TimeCardListAdapter;
 import android.finite.com.timetrack.view.cards.CardSelector;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -41,7 +42,7 @@ public class TimeView extends AppCompatActivity implements CardSelector {
     private AssigmentCardListAdapter adapater;
     private TimeCardListAdapter cardListAdapter;
     private Assignment selected;
-    private GenericCardView selectedCard;
+    private CardView selectedCard;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +58,18 @@ public class TimeView extends AppCompatActivity implements CardSelector {
                 Intent intent = new Intent();
                 intent.setClass(view.getContext(), TimeAddActivity.class);
                 startActivityForResult(intent, TIME_ADD_REQUEST_CODE);
+            }
+        });
+
+        FloatingActionButton editFab = (FloatingActionButton) findViewById(R.id.editFab);
+        editFab.setVisibility(View.GONE);
+        editFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent();
+                intent.setClass(view.getContext(), TimeAddActivity.class);
+                //intent.putExtra(TimeEntry.TIME_KEY, ((TimeEntry) selectedCard.getAssociatedDataProvder()).getProjectId());
+                startActivity(intent);
             }
         });
 
@@ -129,23 +142,23 @@ public class TimeView extends AppCompatActivity implements CardSelector {
 
     @Override
     public void setSelectedCard(CardView card, Object associacation) {
-//        if(associacation instanceof TimeEntry){
-//            if(this.selectedCard != null) {
-//                this.selectedCard.resetSelection();
-//            }
-//
-//            if(this.selectedCard == card){
-//                this.selectedCard = null;
-//            } else {
-//                this.selectedCard = (GenericCardView) card;
-//            }
-//            if ( this.selectedCard == null ) {
-//               // findViewById(R.id.editFab).setVisibility(View.GONE);
-//            } else {
-//                //findViewById(R.id.editFab).setVisibility(View.VISIBLE);
-//                this.selectedCard.setCardBackgroundColor(getResources().getColor(android.R.color.holo_blue_light));
-//            }
-//        }
+        if(associacation instanceof TimeEntry){
+            if(this.selectedCard != null) {
+                this.selectedCard.setCardBackgroundColor(Color.WHITE);;
+            }
+
+            if(this.selectedCard == card){
+                this.selectedCard = null;
+            } else {
+                this.selectedCard = (CardView) card;
+            }
+            if ( this.selectedCard == null ) {
+                findViewById(R.id.editFab).setVisibility(View.GONE);
+            } else {
+                findViewById(R.id.editFab).setVisibility(View.VISIBLE);
+                this.selectedCard.setCardBackgroundColor(getResources().getColor(android.R.color.holo_blue_light));
+            }
+        }
     }
 
     @Override

@@ -1,11 +1,14 @@
 package android.finite.com.timetrack;
 
 import android.content.Intent;
+import android.finite.com.timetrack.controller.Controllers;
+import android.finite.com.timetrack.controller.TimeHandler;
 import android.finite.com.timetrack.db.data.Assignment;
 import android.finite.com.timetrack.db.data.Project;
 import android.finite.com.timetrack.db.data.User;
 import android.finite.com.timetrack.data.DataManager;
 import android.finite.com.timetrack.data.DummyDataManager;
+import android.finite.com.timetrack.view.StartStopButtonLogic;
 import android.finite.com.timetrack.view.listener.DrawerListener;
 import android.finite.com.timetrack.view.spinner.AssigmentSpinnerAdapter;
 import android.finite.com.timetrack.view.spinner.ProjectSpinnerAdapter;
@@ -20,6 +23,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.Spinner;
 
 public class TimeTrackHome extends AppCompatActivity {
@@ -28,6 +32,7 @@ public class TimeTrackHome extends AppCompatActivity {
     private Spinner currentAssignmentSpinner;
     private AssigmentSpinnerAdapter assignmentAdapter;
     private ProjectSpinnerAdapter projectAdapater;
+    private StartStopButtonLogic startStopLogic;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,6 +93,15 @@ public class TimeTrackHome extends AppCompatActivity {
         this.currentAssignmentSpinner.setSelection(this.assignmentAdapter
                 .getPosition(selectedAssignment));
 
+        //TODO implement start to timehandler controller
+        initStartStop();
+
+    }
+
+    private void initStartStop() {
+        Button start = (Button) findViewById(R.id.startStopBtn);
+        this.startStopLogic = new StartStopButtonLogic(start,
+                Controllers.get().getController(TimeHandler.class), this);
     }
 
     private void initAssignemnts() {

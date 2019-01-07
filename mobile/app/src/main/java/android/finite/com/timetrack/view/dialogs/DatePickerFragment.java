@@ -3,45 +3,38 @@ package android.finite.com.timetrack.view.dialogs;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
+import android.finite.com.timetrack.controller.Controllers;
 import android.finite.com.timetrack.controller.TimeHandler;
+import android.finite.com.timetrack.model.values.TimeModel;
 import android.os.Bundle;
 import android.widget.DatePicker;
 import android.widget.EditText;
 
-import java.text.ParseException;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.GregorianCalendar;
 
-public class DatePickerFragment extends DialogFragment {
-    enum Flavour{
-        FROM,
-        TO
-    }
+public class DatePickerFragment extends DialogFragment implements PickerFragment{
     private EditText input = null;
-    private Flavour flavour;
+    private TimeHandler.Type flavour;
+    private TimeModel model;
 
+    @Override
     public void setSource(EditText input) {
         this.input = input;
     }
 
-
-    public void setFlavour(Flavour flav) {
+    @Override
+    public void setFlavour(TimeHandler.Type flav) {
         this.flavour = flav;
     }
 
     @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {
-            String dateString = this.input.getText().toString();
+            TimeHandler controller = Controllers.get().getController(TimeHandler.class);
+            this.model = controller.getTime(this.flavour);
 
-            Calendar c = null;
-            try {
-                Date date = TimeHandler.getDateFormat().parse(dateString);
-                c = new GregorianCalendar();
-                c.setTime(date);
-            } catch (ParseException e) {
-                c = Calendar.getInstance();
-            }
+            Calendar c = new GregorianCalendar();
+            c.setTime(this.model.getValue());
 
             int year = c.get(Calendar.YEAR);
             int month = c.get(Calendar.MONTH);

@@ -81,6 +81,7 @@ public class TimeCardListAdapter extends  RecyclerView.Adapter<TimeCardListAdapt
 
     @Override
     public TimeCardListAdapter.DataViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        //GenericCardView view = new GenericCardView(new InflaterCardLayout(parent, R.layout.times_list_item));
         return new TimeCardListAdapter.DataViewHolder((CardView) LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.times_list_item, parent, false));
     }

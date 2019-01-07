@@ -67,6 +67,11 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="android.finite.com.timetrack.view.activities.TimeView" />
         </activity>
+
+        <service
+            android:name=".services.TimeCheckService"
+            android:enabled="true"
+            android:exported="true"></service>
     </application>
 
 </manifest>

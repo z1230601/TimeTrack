@@ -18,6 +18,8 @@ import static android.arch.persistence.room.ForeignKey.CASCADE;
     parentColumns = "assignmentId", childColumns = "assignmentId", onDelete = CASCADE),
     indices = {@Index("timeId"), @Index("assignmentId")})
 public class TimeEntry {
+    public static final String TIME_KEY = "TIMEID";
+
     public enum Type {
         TRAVEL_PASSIV("Reise Passiv"),
         TRAVEL_ACTIVE("Reise Aktiv"),
