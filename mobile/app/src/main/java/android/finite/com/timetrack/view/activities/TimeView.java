@@ -39,7 +39,6 @@ public class TimeView extends AppCompatActivity implements CardSelector {
 
     private LinearLayoutManager layoutManager;
     private RecyclerView timeList;
-    private AssigmentCardListAdapter adapater;
     private TimeCardListAdapter cardListAdapter;
     private Assignment selected;
     private CardView selectedCard;
