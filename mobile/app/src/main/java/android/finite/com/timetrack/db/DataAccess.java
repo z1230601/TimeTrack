@@ -34,16 +34,18 @@ public abstract class DataAccess extends RoomDatabase {
 
     private static DataAccess INSTANCE;
 
-    public static DataAccess getAppDatabase(Context context) {
-        if (INSTANCE == null) {
-            INSTANCE =
-                    Room.databaseBuilder(context.getApplicationContext(), DataAccess.class, "T3-data")
+    public static DataAccess getAppDatabase() {
+        return INSTANCE;
+    }
+
+    public static void initAppDatabase(Context context) {
+        INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
+                DataAccess.class, "T3-data")
                             // allow queries on the main thread.
                             // Don't do this on a real app! See PersistenceBasicSample for an example.
+                //TODO: remove and make workers
                             .allowMainThreadQueries()
                             .build();
-        }
-        return INSTANCE;
     }
 
     public static void destroyInstance() {

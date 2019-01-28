@@ -262,11 +262,6 @@ public class DummyDataManager extends DataManager {
     }
 
     @Override
-    public ArrayList<Assignment> getAssignments() {
-        return new ArrayList<Assignment>(this.assignments.values());
-    }
-
-    @Override
     public List<Assignment> getAssignmentsForProject(int projectId) {
         if(this.projectAssigmentMapping.containsKey(projectId)){
             return this.projectAssigmentMapping.get(projectId);

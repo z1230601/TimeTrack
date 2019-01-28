@@ -15,7 +15,6 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/integrated_spinner_height"
             android:layout_margin="5dp"
-            android:entries="@string/newProjectString"
             android:padding="5dp"
             tools:layout_editor_absoluteX="0dp"
             tools:layout_editor_absoluteY="56dp" />
@@ -27,7 +26,6 @@
             android:layout_height="@dimen/integrated_spinner_height"
             android:layout_margin="5dp"
             android:layout_weight="1"
-            android:entries="@string/newAssign"
             android:padding="5dp"
             tools:layout_editor_absoluteX="0dp"
             tools:layout_editor_absoluteY="167dp" />

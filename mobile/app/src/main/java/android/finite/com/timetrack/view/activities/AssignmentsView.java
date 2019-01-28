@@ -64,9 +64,9 @@ public class AssignmentsView extends AppCompatActivity implements CardSelector{
         this.makeCurrentButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DataManager.get().setCurrentProject((Project) currentProjectSpinner.getSelectedItem());
+                DataManager.get().setSelectedProject((Project) currentProjectSpinner.getSelectedItem());
 
-                DataManager.get().setCurrentAssignment(selectedAssigment);
+                DataManager.get().setSelectedAssignment(selectedAssigment);
             }
         });
 

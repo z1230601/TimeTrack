@@ -3,6 +3,7 @@ package android.finite.com.timetrack;
 import android.content.Intent;
 import android.finite.com.timetrack.controller.Controllers;
 import android.finite.com.timetrack.controller.TimeHandler;
+import android.finite.com.timetrack.db.DataAccess;
 import android.finite.com.timetrack.db.data.Assignment;
 import android.finite.com.timetrack.db.data.Project;
 import android.finite.com.timetrack.db.data.User;
@@ -38,9 +39,10 @@ public class TimeTrackHome extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if(! (DataManager.get() instanceof DummyDataManager)) {
-            DataManager.insertInstance(new DummyDataManager());
-        }
+        DataAccess.initAppDatabase(getBaseContext());
+//        if(! (DataManager.get() instanceof DummyDataManager)) {
+//            DataManager.insertInstance(new DummyDataManager());
+//        }
 
         setContentView(R.layout.activity_time_track_home);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -63,7 +65,7 @@ public class TimeTrackHome extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 Project selectedProject = (Project) currentProjectSpinner.getItemAtPosition(position);
-                DataManager.get().setCurrentProject(selectedProject);
+                DataManager.get().setSelectedProject(selectedProject);
                 initAssignemnts();
             }
             @Override
@@ -76,7 +78,7 @@ public class TimeTrackHome extends AppCompatActivity {
         this.currentAssignmentSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                DataManager.get().setCurrentAssignment((Assignment) currentAssignmentSpinner.getSelectedItem());
+                DataManager.get().setSelectedAssignment((Assignment) currentAssignmentSpinner.getSelectedItem());
             }
             @Override
             public void onNothingSelected(AdapterView<?> parent) {}

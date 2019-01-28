@@ -20,7 +20,7 @@ public class AssigmentSpinnerAdapter extends ArrayAdapter<Assignment> implements
     public void init() {
         clear();
 
-        this.assignments = DataManager.get().getCurrentAssigments();
+        this.assignments = DataManager.get().getSelectedAssigments();
         for(Assignment assign : this.assignments) {
             add(assign);
         }

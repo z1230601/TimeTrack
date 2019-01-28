@@ -10,8 +10,9 @@ import java.util.List;
 
 @Dao
 public interface AssignmentDao {
-    @Query("SELECT * FROM assignments")
-    List<Assignment> getAll();
+
+    @Query("SELECT * FROM assignments where projectId == :projectId")
+    List<Assignment> getAssignmentsByProject(int projectId);
 
     //@Query("SELECT * FROM user where first_name LIKE  :firstName AND last_name LIKE :lastName")
     //User findByName(String firstName, String lastName);
@@ -24,5 +25,6 @@ public interface AssignmentDao {
 
     @Delete
     void delete(Assignment user);
+
 }
 
